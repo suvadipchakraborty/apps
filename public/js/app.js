@@ -3,6 +3,36 @@
 
   const SITE_URL = "https://apps.suvadipchakraborty.workers.dev/";
 
+  /* ---------------- theme ---------------- */
+
+  const themeToggle = document.getElementById("themeToggle");
+  const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+  const THEME_COLORS = { light: "#faf8f3", dark: "#111218" };
+
+  function setTheme(theme) {
+    if (theme === "dark") {
+      document.documentElement.setAttribute("data-theme", "dark");
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+    }
+    themeToggle?.setAttribute("aria-pressed", String(theme === "dark"));
+    themeToggle?.setAttribute("aria-label", theme === "dark" ? "Switch to light theme" : "Switch to dark theme");
+    if (metaThemeColor) metaThemeColor.setAttribute("content", THEME_COLORS[theme]);
+    try {
+      localStorage.setItem("shelf-theme", theme);
+    } catch (err) {
+      // storage may be unavailable — theme just won't persist
+    }
+  }
+
+  themeToggle?.addEventListener("click", () => {
+    const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+    setTheme(isDark ? "light" : "dark");
+  });
+
+  // sync initial aria state + meta color (data-theme may already be set by the inline head script)
+  setTheme(document.documentElement.hasAttribute("data-theme") ? "dark" : "light");
+
   /* ---------------- filters ---------------- */
 
   const chips = Array.from(document.querySelectorAll(".chip"));
