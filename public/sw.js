@@ -1,7 +1,7 @@
 // Bump this string on every deploy that changes a file in SHELL_FILES.
 // Network-first below means this mostly matters for offline fallback,
 // not for freshness — but bump it anyway so old caches get pruned.
-const SHELL_CACHE = "shelf-shell-v5";
+const SHELL_CACHE = "shelf-shell-v6";
 const SHELL_FILES = [
   "/",
   "/index.html",
