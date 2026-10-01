@@ -54,13 +54,13 @@ preview and structured data work correctly no matter what fetches them.
    `utility`, or `games` — or a new category, see below).
 3. Add a matching entry to the `ItemList` in the JSON-LD `<script>` block
    near the top of the file, so search engines pick it up too.
-4. Bump the footer count ("23 apps and counting" at the moment).
+4. Bump the footer count ("24 apps and counting" at the moment).
 5. If it's a genuinely new category: add a `.chip` button in the filters
    row, a CSS rule `.card[data-cat="x"] { --accent: ... }` in `styles.css`,
    and pick an accent from the palette already defined at the top of
    `styles.css` (or add a new one).
-6. Optional: bump the cache name in `public/sw.js` (`shelf-shell-v3` →
-   `v4`) so any already-installed visitors' offline cache doesn't serve a
+6. Optional: bump the cache name in `public/sw.js` (`shelf-shell-v4` →
+   `v5`) so any already-installed visitors' offline cache doesn't serve a
    stale shell. This is a network-first worker, so it's a minor nicety,
    not something that will hide your update.
 
