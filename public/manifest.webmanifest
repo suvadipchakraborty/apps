@@ -1,15 +1,23 @@
 {
+  "id": "/",
   "name": "The Shelf — apps by Suva",
   "short_name": "The Shelf",
   "description": "A growing shelf of small, single-purpose apps built by Suva.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#faf8f3",
-  "theme_color": "#faf8f3",
+  "background_color": "#f3f4fa",
+  "theme_color": "#f3f4fa",
+  "lang": "en",
+  "categories": ["utilities", "lifestyle", "entertainment"],
   "icons": [
     { "src": "/assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
     { "src": "/assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
     { "src": "/assets/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "My shelf", "short_name": "My shelf", "url": "/?tab=mine", "icons": [{ "src": "/assets/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Games", "short_name": "Games", "url": "/?tab=games", "icons": [{ "src": "/assets/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Search apps", "short_name": "Search", "url": "/?tab=all", "icons": [{ "src": "/assets/icon-192.png", "sizes": "192x192" }] }
   ]
 }

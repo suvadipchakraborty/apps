@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>The Shelf — small apps built by Suva</title>
+<meta name="description" content="A growing shelf of small, single-purpose apps built by Suva — traffic rankings, scam checks, mandi prices, daily research digests, trivia games and more. No logins, no bloat." />
+<link rel="canonical" href="{{SITE}}/" />
+<meta name="robots" content="index, follow" />
+<meta name="theme-color" content="#f3f4fa" />
+<meta name="color-scheme" content="light dark" />
+<meta name="author" content="Suva" />
+
+<!-- Apply saved look & feel before first paint (no flash). Also reads the old v1 "shelf-theme" key. -->
+<script>
+  (function () {
+    var d = document.documentElement, p = {}, t;
+    try { p = JSON.parse(localStorage.getItem("shelf-prefs") || "null") || {}; } catch (e) {}
+    t = p.theme;
+    if (!t) {
+      try { var l = localStorage.getItem("shelf-theme"); t = (l === "dark" || l === "light") ? l : "system"; } catch (e) { t = "system"; }
+    }
+    if (t === "system") t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    d.setAttribute("data-theme", t);
+    d.setAttribute("data-style", p.style || "vivid");
+    d.setAttribute("data-layout", p.layout || "tiles");
+    d.setAttribute("data-size", p.size || "md");
+    d.setAttribute("data-motion", p.motion || "system");
+    if (window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true) d.classList.add("standalone");
+    d.classList.add("boot");
+    var m = document.querySelector('meta[name="theme-color"]');
+    if (m) m.setAttribute("content", t === "dark" ? "#0d0f1c" : "#f3f4fa");
+  })();
+</script>
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="The Shelf — small apps built by Suva" />
+<meta property="og:description" content="A growing shelf of small, single-purpose apps built by Suva. No logins, no bloat, one link to all of them." />
+<meta property="og:url" content="{{SITE}}/" />
+<meta property="og:image" content="{{SITE}}/assets/og-image.png" />
+<meta property="og:image:secure_url" content="{{SITE}}/assets/og-image.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="The Shelf — small, sharp apps by Suva" />
+<meta property="og:site_name" content="The Shelf" />
+
+<!-- Twitter / generic card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="The Shelf — small apps built by Suva" />
+<meta name="twitter:description" content="A growing shelf of small, single-purpose apps built by Suva. No logins, no bloat, one link to all of them." />
+<meta name="twitter:image" content="{{SITE}}/assets/og-image.png" />
+
+<!-- PWA (names, icons, scope and start_url are unchanged so installed copies keep working) -->
+<link rel="manifest" href="/manifest.webmanifest" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="The Shelf" />
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+<link rel="icon" href="/favicon.ico" sizes="any" />
+
+<link rel="preload" href="/fonts/bricolage-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/fonts/figtree-latin.woff2" as="font" type="font/woff2" crossorigin />
+
+<link rel="stylesheet" href="/css/styles.css" />
+
+<script type="application/ld+json">
+{{JSONLD}}
+</script>
+</head>
+<body>
+{{SPRITE}}
+
+<div class="status-cover" aria-hidden="true"></div>
+
+<header class="topbar wrap">
+  <a class="wordmark" href="/" aria-label="The Shelf, home">
+    <span class="bars" aria-hidden="true"><span></span><span></span><span></span></span>
+    <span>The Shelf</span>
+  </a>
+  <div class="top-actions">
+    <button type="button" class="icon-btn" id="themeQuick" aria-label="Switch to dark theme">
+      <svg class="ico ico-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+      <svg class="ico ico-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+    </button>
+    <button type="button" class="icon-btn" id="shareBtn" aria-label="Share The Shelf">{{i:share}}</button>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ EXPLORE ============ -->
+  <section class="view" id="view-explore" aria-label="Explore apps">
+    <div class="wrap hero">
+      <h1>A shelf of small, sharp apps.</h1>
+      <p class="hero-sub">{{COUNT}} apps, one job each. No logins, no bloat.</p>
+
+      <form class="search" role="search" id="searchForm" onsubmit="return false">
+        <label class="sr-only" for="q">Search apps</label>
+        {{i:search}}
+        <input id="q" type="search" inputmode="search" enterkeyhint="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Search by name or topic" />
+        <button type="button" class="clear" id="clearQ" aria-label="Clear search" hidden>{{i:x}}</button>
+      </form>
+
+      <div class="install-note" id="installNote" hidden>
+        <span class="install-note-icon" aria-hidden="true">{{i:download}}</span>
+        <span class="install-note-text">Add to your home screen</span>
+        <button type="button" class="btn small" id="installNoteBtn">Add</button>
+        <button type="button" class="icon-btn quiet" id="installNoteClose" aria-label="Dismiss">{{i:x}}</button>
+      </div>
+    </div>
+
+    <div id="tabsSentinel" aria-hidden="true"></div>
+    <div class="tabs-wrap" id="tabsWrap">
+      <div class="tabs" role="tablist" aria-label="App categories" id="tabs">
+        {{TABS}}
+      </div>
+    </div>
+
+    <div class="wrap explore-body" id="exploreBody">
+      <p class="result-line" id="resultLine" aria-live="polite" hidden></p>
+      <div id="pick" hidden></div>
+
+      <div role="tabpanel" id="panel" aria-labelledby="tab-all">
+        <ul class="apps" id="apps">
+{{APPS}}
+        </ul>
+      </div>
+
+      <div class="empty" id="searchEmpty" hidden>
+        <span class="empty-icon" aria-hidden="true">{{i:search}}</span>
+        <h2>Nothing matches “<span id="emptyQ"></span>”</h2>
+        <p>Try a topic, like train, quiz or news. Or tell Suva what you were hoping to find.</p>
+        <a class="btn" href="{{MAIL_IDEA}}" data-mail="idea">Suggest an app</a>
+      </div>
+
+      <div class="end-note" id="endNote">
+        <p>That's all {{COUNT}} for now. Got an idea for the next one?</p>
+        <a class="btn" href="{{MAIL_IDEA}}" data-mail="idea">Suggest an app</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MY SHELF ============ -->
+  <section class="view" id="view-mine" aria-labelledby="mineTitle" hidden>
+    <div class="wrap">
+      <h1 class="view-title" id="mineTitle" tabindex="-1">My shelf</h1>
+      <p class="view-sub">Your pinned apps and the ones you opened lately. Saved on this device only.</p>
+
+      <div class="empty" id="mineEmpty" hidden>
+        <span class="empty-icon" aria-hidden="true">{{i:star}}</span>
+        <h2>Nothing on your shelf yet</h2>
+        <p>Tap the star on any app to pin it here. Press and hold works too, in any layout.</p>
+        <button type="button" class="btn" data-go="explore">Browse apps</button>
+      </div>
+
+      <section id="minePinned" class="mine-sec" hidden>
+        <div class="sec-head"><h2>Pinned</h2></div>
+        <p class="hint" id="pinnedHint" hidden>Tap the star on any app to pin it here.</p>
+        <ul class="apps" id="pinnedList"></ul>
+      </section>
+
+      <section id="mineRecent" class="mine-sec" hidden>
+        <div class="sec-head"><h2>Recently opened</h2><button type="button" class="link-btn" id="clearRecent">Clear</button></div>
+        <ul class="apps" id="recentList"></ul>
+      </section>
+    </div>
+  </section>
+
+  <!-- ============ SETTINGS ============ -->
+  <section class="view" id="view-settings" aria-labelledby="settingsTitle" hidden>
+    <div class="wrap settings">
+      <h1 class="view-title" id="settingsTitle" tabindex="-1">Settings</h1>
+      <p class="view-sub">Make The Shelf yours. Changes apply instantly and stay on this device.</p>
+
+      <div class="preview" aria-hidden="true">
+        <span class="app-icon" data-cat="around" style="--o:-7"><svg class="glyph"><use href="#g-traffic"/></svg></span>
+        <span class="app-icon" data-cat="safe" style="--o:0"><svg class="glyph"><use href="#g-thaga"/></svg></span>
+        <span class="app-icon" data-cat="learn" style="--o:7"><svg class="glyph"><use href="#g-bytebriefs"/></svg></span>
+        <span class="app-icon" data-cat="time" style="--o:0"><svg class="glyph"><use href="#g-retro"/></svg></span>
+        <span class="app-icon" data-cat="world" style="--o:-7"><svg class="glyph"><use href="#g-culinary"/></svg></span>
+        <span class="app-icon" data-cat="games" style="--o:0"><svg class="glyph"><use href="#g-flightdle"/></svg></span>
+      </div>
+
+      <div class="group">
+        <h2 class="group-title">Look and feel</h2>
+        <div class="panel">
+          <div class="setting">
+            <div class="setting-head"><h3>Theme</h3><p>Auto follows your phone.</p></div>
+            <div class="seg" role="group" aria-label="Theme" data-pref="theme">
+              <button type="button" data-value="system">Auto</button>
+              <button type="button" data-value="light">Light</button>
+              <button type="button" data-value="dark">Dark</button>
+            </div>
+          </div>
+          <div class="setting">
+            <div class="setting-head"><h3>Icon style</h3><p>How app icons are coloured.</p></div>
+            <div class="seg" role="group" aria-label="Icon style" data-pref="style">
+              <button type="button" data-value="vivid">Vivid</button>
+              <button type="button" data-value="soft">Soft</button>
+              <button type="button" data-value="mono">Mono</button>
+            </div>
+          </div>
+          <div class="setting">
+            <div class="setting-head"><h3>Text size</h3></div>
+            <div class="seg" role="group" aria-label="Text size" data-pref="size">
+              <button type="button" data-value="sm">Small</button>
+              <button type="button" data-value="md">Default</button>
+              <button type="button" data-value="lg">Large</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="group">
+        <h2 class="group-title">Layout</h2>
+        <div class="panel">
+          <div class="setting">
+            <div class="setting-head"><h3>View</h3><p>Tiles show a line about each app, List shows the full story, Icons fits the most on screen.</p></div>
+            <div class="seg" role="group" aria-label="View" data-pref="layout">
+              <button type="button" data-value="tiles">Tiles</button>
+              <button type="button" data-value="list">List</button>
+              <button type="button" data-value="icons">Icons</button>
+            </div>
+          </div>
+          <div class="setting">
+            <div class="setting-head"><h3>Order</h3></div>
+            <div class="seg" role="group" aria-label="Order" data-pref="sort">
+              <button type="button" data-value="curated">By category</button>
+              <button type="button" data-value="az">A to Z</button>
+            </div>
+          </div>
+          <div class="setting row">
+            <div class="setting-head"><h3>Reduce motion</h3><p>Turn off animations and swipe effects.</p></div>
+            <button type="button" class="switch" id="motionSwitch" role="switch" aria-checked="false" aria-label="Reduce motion"><span></span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="group">
+        <h2 class="group-title">This app</h2>
+        <div class="panel">
+          <button type="button" class="action" id="installRow">
+            {{i:download}}
+            <span class="action-text"><strong>Add to home screen</strong><span id="installSub">Open The Shelf like an app</span></span>
+            {{i:chevron}}
+          </button>
+          <button type="button" class="action" id="updateRow">
+            {{i:refresh}}
+            <span class="action-text"><strong>Check for updates</strong><span>Reload to get the latest version</span></span>
+            {{i:chevron}}
+          </button>
+          <button type="button" class="action" id="shareRow">
+            {{i:share}}
+            <span class="action-text"><strong>Share The Shelf</strong><span>Send the link to a friend</span></span>
+            {{i:chevron}}
+          </button>
+        </div>
+      </div>
+
+      <div class="group">
+        <h2 class="group-title">Help and feedback</h2>
+        <div class="panel">
+          <a class="action" href="{{MAIL_FEEDBACK}}" data-mail="feedback">
+            {{i:mail}}
+            <span class="action-text"><strong>Send feedback</strong><span>Opens an email with the details filled in</span></span>
+            {{i:chevron}}
+          </a>
+          <a class="action" href="{{MAIL_BROKEN}}" data-mail="broken">
+            {{i:alert}}
+            <span class="action-text"><strong>Report a broken app</strong><span>Tell Suva which one and what happened</span></span>
+            {{i:chevron}}
+          </a>
+          <a class="action" href="{{MAIL_IDEA}}" data-mail="idea">
+            {{i:plus}}
+            <span class="action-text"><strong>Suggest an app</strong><span>Pitch the next thing on the shelf</span></span>
+            {{i:chevron}}
+          </a>
+        </div>
+      </div>
+
+      <div class="group">
+        <h2 class="group-title">Your data</h2>
+        <div class="panel">
+          <button type="button" class="action" id="clearDataRow">
+            {{i:trash}}
+            <span class="action-text"><strong>Clear pins and recent apps</strong><span id="clearDataSub">Removes everything on My shelf</span></span>
+            {{i:chevron}}
+          </button>
+          <button type="button" class="action" id="resetRow">
+            {{i:reset}}
+            <span class="action-text"><strong>Reset settings</strong><span id="resetSub">Back to the default look</span></span>
+            {{i:chevron}}
+          </button>
+        </div>
+      </div>
+
+      <div class="about">
+        <span class="bars" aria-hidden="true"><span></span><span></span><span></span></span>
+        <p><strong>The Shelf <span id="versionLabel">2.0</span></strong><br />{{COUNT}} apps, built by Suva.</p>
+        <a class="link-btn" href="https://www.linkedin.com/in/suva" target="_blank" rel="noopener">Stay in touch on LinkedIn</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<nav class="dock" aria-label="Primary" id="dock">
+  <button type="button" data-view="explore" aria-current="page">{{i:grid}}<span>Explore</span></button>
+  <button type="button" data-view="mine">{{i:shelf}}<span>My shelf</span><i class="dock-badge" id="pinBadge" hidden></i></button>
+  <button type="button" data-view="settings">{{i:sliders}}<span>Settings</span></button>
+</nav>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<div class="sheet-backdrop" id="installBackdrop">
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <h2 id="sheetTitle">Save to your home screen</h2>
+    <p id="sheetCopy">Install The Shelf like an app — one tap to reach it next time.</p>
+    <ol id="sheetSteps"></ol>
+    <button type="button" class="btn block" id="sheetClose">Got it</button>
+  </div>
+</div>
+
+<script src="/js/app.js" defer></script>
+</body>
+</html>

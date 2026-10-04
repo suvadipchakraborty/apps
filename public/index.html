@@ -7,16 +7,31 @@
 <meta name="description" content="A growing shelf of small, single-purpose apps built by Suva — traffic rankings, scam checks, mandi prices, daily research digests, trivia games and more. No logins, no bloat." />
 <link rel="canonical" href="https://apps.suvadipchakraborty.workers.dev/" />
 <meta name="robots" content="index, follow" />
-<meta name="theme-color" content="#faf8f3" />
+<meta name="theme-color" content="#f3f4fa" />
+<meta name="color-scheme" content="light dark" />
+<meta name="author" content="Suva" />
+
+<!-- Apply saved look & feel before first paint (no flash). Also reads the old v1 "shelf-theme" key. -->
 <script>
   (function () {
-    try {
-      var saved = localStorage.getItem("shelf-theme");
-      if (saved === "dark") document.documentElement.setAttribute("data-theme", "dark");
-    } catch (e) {}
+    var d = document.documentElement, p = {}, t;
+    try { p = JSON.parse(localStorage.getItem("shelf-prefs") || "null") || {}; } catch (e) {}
+    t = p.theme;
+    if (!t) {
+      try { var l = localStorage.getItem("shelf-theme"); t = (l === "dark" || l === "light") ? l : "system"; } catch (e) { t = "system"; }
+    }
+    if (t === "system") t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    d.setAttribute("data-theme", t);
+    d.setAttribute("data-style", p.style || "vivid");
+    d.setAttribute("data-layout", p.layout || "tiles");
+    d.setAttribute("data-size", p.size || "md");
+    d.setAttribute("data-motion", p.motion || "system");
+    if (window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true) d.classList.add("standalone");
+    d.classList.add("boot");
+    var m = document.querySelector('meta[name="theme-color"]');
+    if (m) m.setAttribute("content", t === "dark" ? "#0d0f1c" : "#f3f4fa");
   })();
 </script>
-<meta name="author" content="Suva" />
 
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
@@ -37,17 +52,17 @@
 <meta name="twitter:description" content="A growing shelf of small, single-purpose apps built by Suva. No logins, no bloat, one link to all of them." />
 <meta name="twitter:image" content="https://apps.suvadipchakraborty.workers.dev/assets/og-image.png" />
 
-<!-- PWA -->
+<!-- PWA (names, icons, scope and start_url are unchanged so installed copies keep working) -->
 <link rel="manifest" href="/manifest.webmanifest" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <meta name="apple-mobile-web-app-title" content="The Shelf" />
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 <link rel="icon" href="/favicon.ico" sizes="any" />
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="preload" href="/fonts/bricolage-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/fonts/figtree-latin.woff2" as="font" type="font/woff2" crossorigin />
 
 <link rel="stylesheet" href="/css/styles.css" />
 
@@ -58,486 +73,921 @@
   "name": "The Shelf — small apps built by Suva",
   "url": "https://apps.suvadipchakraborty.workers.dev/",
   "description": "A growing shelf of small, single-purpose apps built by Suva.",
-  "author": { "@type": "Person", "name": "Suva", "sameAs": "https://www.linkedin.com/in/suva" },
+  "author": {
+    "@type": "Person",
+    "name": "Suva",
+    "sameAs": "https://www.linkedin.com/in/suva"
+  },
   "mainEntity": {
     "@type": "ItemList",
     "itemListElement": [
-      { "@type": "SoftwareApplication", "position": 1, "name": "Indian Traffic Premier League", "url": "https://indian-traffic-premier-league.suvadipchakraborty.workers.dev/", "applicationCategory": "Rankings", "operatingSystem": "Web" },
-      { "@type": "SoftwareApplication", "position": 2, "name": "Air Olympics", "url": "https://air-olympics.suvadipchakraborty.workers.dev/", "applicationCategory": "Rankings", "operatingSystem": "Web" },
-      { "@type": "SoftwareApplication", "position": 3, "name": "ByteBriefs", "url": "https://byte-briefs.suvadipchakraborty.workers.dev/", "applicationCategory": "Rankings", "operatingSystem": "Web" },
-      { "@type": "SoftwareApplication", "position": 4, "name": "Cultural Compass", "url": "https://global-holidays.suvadipchakraborty.workers.dev/?v=2", "applicationCategory": "Culture", "operatingSystem": "Web" },
-      { "@type": "SoftwareApplication", "position": 5, "name": "Culinary Geography", "url": "https://global-food.suvadipchakraborty.workers.dev/?v=2", "applicationCategory": "Culture", "operatingSystem": "Web" },
-      { "@type": "SoftwareApplication", "position": 6, "name": "Ekayana", "url": "https://spiritual-books.suvadipchakraborty.workers.dev/?v=2", "applicationCategory": "Culture", "operatingSystem": "Web" },
-      { "@type": "SoftwareApplication", "position": 7, "name": "Synapse", "url": "https://synapse.suvadipchakraborty.workers.dev/?v=2", "applicationCategory": "Discover", "operatingSystem": "Web" },
-      { "@type": "SoftwareApplication", "position": 8, "name": "Retroactive", "url": "https://retroactive.suvadipchakraborty.workers.dev/", "applicationCategory": "Discover", "operatingSystem": "Web" },
-      { "@type": "SoftwareApplication", "position": 9, "name": "Abstracted", "url": "https://abstracted.suvadipchakraborty.workers.dev/?v=2", "applicationCategory": "Discover", "operatingSystem": "Web" },
-      { "@type": "SoftwareApplication", "position": 10, "name": "Prior Art", "url": "https://prior-art.suvadipchakraborty.workers.dev/", "applicationCategory": "Discover", "operatingSystem": "Web" },
-      { "@type": "SoftwareApplication", "position": 11, "name": "Mandi Nibs", "url": "https://mandi.suvadipchakraborty.workers.dev/", "applicationCategory": "Utility", "operatingSystem": "Web" },
-      { "@type": "SoftwareApplication", "position": 12, "name": "ThagaShield", "url": "https://thaga-shield.suvadipchakraborty.workers.dev/", "applicationCategory": "Utility", "operatingSystem": "Web" },
-      { "@type": "SoftwareApplication", "position": 13, "name": "Tatkal Tapasya", "url": "https://tatkal.suvadipchakraborty.workers.dev/", "applicationCategory": "Game", "operatingSystem": "Web" },
-      { "@type": "SoftwareApplication", "position": 14, "name": "The Gauntlet", "url": "https://trivia-fight.suvadipchakraborty.workers.dev/", "applicationCategory": "Game", "operatingSystem": "Web" },
-      { "@type": "SoftwareApplication", "position": 15, "name": "Sarkar Sahayak", "url": "https://sarkar-sahayak.suvadipchakraborty.workers.dev/", "applicationCategory": "Utility", "operatingSystem": "Web" },
-      { "@type": "SoftwareApplication", "position": 16, "name": "PIN Code Buddy", "url": "https://pin-code-buddy.suvadipchakraborty.workers.dev/", "applicationCategory": "Utility", "operatingSystem": "Web" },
-      { "@type": "SoftwareApplication", "position": 17, "name": "FoodRx", "url": "https://foodrx.suvadipchakraborty.workers.dev/?v=2", "applicationCategory": "Utility", "operatingSystem": "Web" },
-      { "@type": "SoftwareApplication", "position": 18, "name": "TrainLive", "url": "https://train-tracker.suvadipchakraborty.workers.dev/", "applicationCategory": "Utility", "operatingSystem": "Web" },
-      { "@type": "SoftwareApplication", "position": 19, "name": "Jargon Buster", "url": "https://jargon-buster.suvadipchakraborty.workers.dev/", "applicationCategory": "Game", "operatingSystem": "Web" },
-      { "@type": "SoftwareApplication", "position": 20, "name": "Blind Date with a Book", "url": "https://blind-date-book.suvadipchakraborty.workers.dev/", "applicationCategory": "Culture", "operatingSystem": "Web" },
-      { "@type": "SoftwareApplication", "position": 21, "name": "Chroma Guess", "url": "https://colours.suvadipchakraborty.workers.dev/", "applicationCategory": "Game", "operatingSystem": "Web" },
-      { "@type": "SoftwareApplication", "position": 22, "name": "The Time Machine Gazette", "url": "https://news18.suvadipchakraborty.workers.dev/", "applicationCategory": "Discover", "operatingSystem": "Web" },
-      { "@type": "SoftwareApplication", "position": 23, "name": "Side Effect Checker", "url": "https://side-effect.suvadipchakraborty.workers.dev/", "applicationCategory": "Utility", "operatingSystem": "Web" },
-      { "@type": "SoftwareApplication", "position": 24, "name": "Tharoor Words", "url": "https://new-word.suvadipchakraborty.workers.dev/", "applicationCategory": "Discover", "operatingSystem": "Web" },
-      { "@type": "SoftwareApplication", "position": 25, "name": "The Reverse Spoiler", "url": "https://reverse-spoiler.suvadipchakraborty.workers.dev/", "applicationCategory": "Culture", "operatingSystem": "Web" },
-      { "@type": "SoftwareApplication", "position": 26, "name": "Wanderlust Roulette", "url": "https://wanderlust.suvadipchakraborty.workers.dev/", "applicationCategory": "Discover", "operatingSystem": "Web" },
-      { "@type": "SoftwareApplication", "position": 27, "name": "The Daily Artifact", "url": "https://museum.suvadipchakraborty.workers.dev/", "applicationCategory": "Discover", "operatingSystem": "Web" },
-      { "@type": "SoftwareApplication", "position": 28, "name": "Radio Golden Hour", "url": "https://golden-hour.suvadipchakraborty.workers.dev/", "applicationCategory": "Discover", "operatingSystem": "Web" },
-      { "@type": "SoftwareApplication", "position": 29, "name": "Flightdle", "url": "https://plane-above.suvadipchakraborty.workers.dev/", "applicationCategory": "Game", "operatingSystem": "Web" },
-      { "@type": "SoftwareApplication", "position": 30, "name": "Curiosity Pulse", "url": "https://curiosity-pulse.suvadipchakraborty.workers.dev/", "applicationCategory": "Discover", "operatingSystem": "Web" }
+      {
+        "@type": "SoftwareApplication",
+        "position": 1,
+        "name": "Indian Traffic Premier League",
+        "description": "Live rankings of how much time your city's traffic steals from you, hour by hour.",
+        "url": "https://indian-traffic-premier-league.suvadipchakraborty.workers.dev/",
+        "applicationCategory": "Around you",
+        "operatingSystem": "Web"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 2,
+        "name": "Air Olympics",
+        "description": "100 cities, one daily leaderboard — who breathed the cleanest air yesterday.",
+        "url": "https://air-olympics.suvadipchakraborty.workers.dev/",
+        "applicationCategory": "Around you",
+        "operatingSystem": "Web"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 3,
+        "name": "Mandi Nibs",
+        "description": "Today's real wholesale mandi prices, before you leave the house. Know before you buy.",
+        "url": "https://mandi.suvadipchakraborty.workers.dev/",
+        "applicationCategory": "Around you",
+        "operatingSystem": "Web"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 4,
+        "name": "TrainLive",
+        "description": "Enter any Indian Railways train number and see its live running status — current location, next station, platform and delay.",
+        "url": "https://train-tracker.suvadipchakraborty.workers.dev/",
+        "applicationCategory": "Around you",
+        "operatingSystem": "Web"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 5,
+        "name": "PIN Code Buddy",
+        "description": "Type any 6-digit Indian PIN code and get the post office, district, state and delivery status, straight from India Post's own records.",
+        "url": "https://pin-code-buddy.suvadipchakraborty.workers.dev/",
+        "applicationCategory": "Around you",
+        "operatingSystem": "Web"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 6,
+        "name": "Sarkar Sahayak",
+        "description": "Answer three simple questions and see the government schemes you may actually qualify for — eligibility, benefits and steps, in plain language.",
+        "url": "https://sarkar-sahayak.suvadipchakraborty.workers.dev/",
+        "applicationCategory": "Around you",
+        "operatingSystem": "Web"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 7,
+        "name": "ThagaShield",
+        "description": "Paste a suspicious call, text or chat and get a straight answer in 60 seconds. Nothing leaves your phone.",
+        "url": "https://thaga-shield.suvadipchakraborty.workers.dev/",
+        "applicationCategory": "Health & safety",
+        "operatingSystem": "Web"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 8,
+        "name": "Side Effect Checker",
+        "description": "Type the salt name printed on the strip and get official FDA warnings and the most reported reactions in plain, scannable cards.",
+        "url": "https://side-effect.suvadipchakraborty.workers.dev/",
+        "applicationCategory": "Health & safety",
+        "operatingSystem": "Web"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 9,
+        "name": "FoodRx",
+        "description": "Select your health conditions and get one combined list of foods to eat and avoid — no conflicting advice, just where they overlap.",
+        "url": "https://foodrx.suvadipchakraborty.workers.dev/?v=2",
+        "applicationCategory": "Health & safety",
+        "operatingSystem": "Web"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 10,
+        "name": "ByteBriefs",
+        "description": "Data & AI news in 60 seconds a day. No fluff, one clear takeaway.",
+        "url": "https://byte-briefs.suvadipchakraborty.workers.dev/",
+        "applicationCategory": "Learn",
+        "operatingSystem": "Web"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 11,
+        "name": "Abstracted",
+        "description": "The latest AI research as clean, swipeable cards. No 40-page PDFs staring you down.",
+        "url": "https://abstracted.suvadipchakraborty.workers.dev/?v=2",
+        "applicationCategory": "Learn",
+        "operatingSystem": "Web"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 12,
+        "name": "Tharoor Words",
+        "description": "Build a vocabulary like Shashi Tharoor. Flashcards of rare words with pronunciation, definitions and examples, and it works offline.",
+        "url": "https://new-word.suvadipchakraborty.workers.dev/",
+        "applicationCategory": "Learn",
+        "operatingSystem": "Web"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 13,
+        "name": "Synapse",
+        "description": "Human knowledge as a living constellation — tap a spark, watch a field of ideas light up.",
+        "url": "https://synapse.suvadipchakraborty.workers.dev/?v=2",
+        "applicationCategory": "Learn",
+        "operatingSystem": "Web"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 14,
+        "name": "Curiosity Pulse",
+        "description": "What is the world reading right now? Live top Wikipedia articles by country, plus a real-time stream of edits happening this second.",
+        "url": "https://curiosity-pulse.suvadipchakraborty.workers.dev/",
+        "applicationCategory": "Learn",
+        "operatingSystem": "Web"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 15,
+        "name": "Retroactive",
+        "description": "A daily time machine through tech and science history — pick a date, meet the past.",
+        "url": "https://retroactive.suvadipchakraborty.workers.dev/",
+        "applicationCategory": "Through time",
+        "operatingSystem": "Web"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 16,
+        "name": "The Time Machine Gazette",
+        "description": "Open today's date, wind the clock back a century, and read the actual newspapers from that exact day. No summaries, no modern commentary.",
+        "url": "https://news18.suvadipchakraborty.workers.dev/",
+        "applicationCategory": "Through time",
+        "operatingSystem": "Web"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 17,
+        "name": "Prior Art",
+        "description": "A daily dive into the brilliant, bizarre and genuinely patented. Real diagrams, real inventions.",
+        "url": "https://prior-art.suvadipchakraborty.workers.dev/",
+        "applicationCategory": "Through time",
+        "operatingSystem": "Web"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 18,
+        "name": "The Daily Artifact",
+        "description": "One object from the world's museums, every day. Switch between Global and India Only, then tap Discover Next for another.",
+        "url": "https://museum.suvadipchakraborty.workers.dev/",
+        "applicationCategory": "Through time",
+        "operatingSystem": "Web"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 19,
+        "name": "Cultural Compass",
+        "description": "Tap any date and see who's celebrating, remembering or observing something, anywhere in the world.",
+        "url": "https://global-holidays.suvadipchakraborty.workers.dev/?v=2",
+        "applicationCategory": "World & culture",
+        "operatingSystem": "Web"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 20,
+        "name": "Culinary Geography",
+        "description": "Tap a country, meet its people, taste its story — a real dish tied to a real place.",
+        "url": "https://global-food.suvadipchakraborty.workers.dev/?v=2",
+        "applicationCategory": "World & culture",
+        "operatingSystem": "Web"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 21,
+        "name": "Wanderlust Roulette",
+        "description": "Shake your phone and land in a random country, with a photo, budget check, capital, languages, currency and a map link.",
+        "url": "https://wanderlust.suvadipchakraborty.workers.dev/",
+        "applicationCategory": "World & culture",
+        "operatingSystem": "Web"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 22,
+        "name": "Radio Golden Hour",
+        "description": "Finds the city where the sun is setting right now and plays a real local radio station. Drift west with the dusk line.",
+        "url": "https://golden-hour.suvadipchakraborty.workers.dev/",
+        "applicationCategory": "World & culture",
+        "operatingSystem": "Web"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 23,
+        "name": "Ekayana",
+        "description": "A quiet, distraction-free room to sit with the Gita, the Quran and the Bible, one verse at a time.",
+        "url": "https://spiritual-books.suvadipchakraborty.workers.dev/?v=2",
+        "applicationCategory": "World & culture",
+        "operatingSystem": "Web"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 24,
+        "name": "Blind Date with a Book",
+        "description": "No cover, no title — just pick a mood, cozy to dark & twisty, and meet the book waiting to be unwrapped.",
+        "url": "https://blind-date-book.suvadipchakraborty.workers.dev/",
+        "applicationCategory": "World & culture",
+        "operatingSystem": "Web"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 25,
+        "name": "The Reverse Spoiler",
+        "description": "The anti-watchlist. Type a movie, get a brutal second opinion on why to skip it, plus what else you could do with those two hours.",
+        "url": "https://reverse-spoiler.suvadipchakraborty.workers.dev/",
+        "applicationCategory": "World & culture",
+        "operatingSystem": "Web"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 26,
+        "name": "Flightdle",
+        "description": "The daily aviation puzzle. See where a real flight took off, the airline and the aircraft, then name the hidden destination in five guesses. Distance and compass hints, a streak, and a shareable emoji grid.",
+        "url": "https://plane-above.suvadipchakraborty.workers.dev/",
+        "applicationCategory": "Games",
+        "operatingSystem": "Web"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 27,
+        "name": "Chroma Guess",
+        "description": "The daily colour game that quietly destroys your confidence. Five rounds, four near-identical options, or go Endless until your first miss.",
+        "url": "https://colours.suvadipchakraborty.workers.dev/",
+        "applicationCategory": "Games",
+        "operatingSystem": "Web"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 28,
+        "name": "The Gauntlet",
+        "description": "A trivia survival roguelike. Three lives, shrinking timers, and a boss round with no lifelines.",
+        "url": "https://trivia-fight.suvadipchakraborty.workers.dev/",
+        "applicationCategory": "Games",
+        "operatingSystem": "Web"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 29,
+        "name": "Tatkal Tapasya",
+        "description": "The 10am IRCTC Tatkal booking panic, recreated as a game. No real tickets, all the trauma.",
+        "url": "https://tatkal.suvadipchakraborty.workers.dev/",
+        "applicationCategory": "Games",
+        "operatingSystem": "Web"
+      },
+      {
+        "@type": "SoftwareApplication",
+        "position": 30,
+        "name": "Jargon Buster",
+        "description": "Hit \"Synergize Paradigm\" for a fresh piece of corporate nonsense, then watch it get decoded into actual human language.",
+        "url": "https://jargon-buster.suvadipchakraborty.workers.dev/",
+        "applicationCategory": "Games",
+        "operatingSystem": "Web"
+      }
     ]
   }
 }
 </script>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="g-traffic" viewBox="0 0 24 24"><rect x="8" y="2.5" width="8" height="19" rx="3"/><circle cx="12" cy="7.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="16.5" r="1.3" fill="currentColor" stroke="none"/></symbol>
+<symbol id="g-air" viewBox="0 0 24 24"><path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2"/><path d="M9.6 4.6A2 2 0 1 1 11 8H2"/><path d="M12.6 19.4A2 2 0 1 0 14 16H2"/></symbol>
+<symbol id="g-mandi" viewBox="0 0 24 24"><path d="M12 7.5c-1.5-1-4-1.2-5.5.4-2 2.1-1.6 6 .4 8.5 1.2 1.5 2.8 2.6 5.1 2.6s3.9-1.1 5.1-2.6c2-2.5 2.4-6.4.4-8.5-1.5-1.6-4-1.4-5.5-.4Z"/><path d="M12 7.5V5"/><path d="M12 5c1-1.6 2.6-2 4-1.5"/></symbol>
+<symbol id="g-train" viewBox="0 0 24 24"><path d="M7 3h10a2 2 0 0 1 2 2v10a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V5a2 2 0 0 1 2-2Z"/><path d="M5 11h14"/><circle cx="9" cy="15" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="15" r="1" fill="currentColor" stroke="none"/><path d="m8.5 19-2 2.5M15.5 19l2 2.5"/></symbol>
+<symbol id="g-pin" viewBox="0 0 24 24"><path d="M12 21.5s7-6 7-11.5a7 7 0 1 0-14 0c0 5.5 7 11.5 7 11.5Z"/><circle cx="12" cy="10" r="2.6"/></symbol>
+<symbol id="g-sarkar" viewBox="0 0 24 24"><path d="M3 9.5 12 4l9 5.5H3Z"/><path d="M5.5 12.5v5M9.8 12.5v5M14.2 12.5v5M18.5 12.5v5"/><path d="M3.5 20.5h17"/></symbol>
+<symbol id="g-thaga" viewBox="0 0 24 24"><path d="M12 3 4.5 6v5.5c0 4.4 3 7.8 7.5 9.5 4.5-1.7 7.5-5.1 7.5-9.5V6L12 3Z"/><path d="m9 12 2.2 2.2L15.5 10"/></symbol>
+<symbol id="g-side" viewBox="0 0 24 24"><path d="m10.5 20.5-7-7a4.95 4.95 0 0 1 7-7l7 7a4.95 4.95 0 0 1-7 7Z"/><path d="m8.5 8.5 7 7"/></symbol>
+<symbol id="g-foodrx" viewBox="0 0 24 24"><path d="M6.5 3v7.5M3.5 3v5a3 3 0 0 0 6 0V3"/><path d="M6.5 11v10"/><path d="M17.5 21V3c-2.4 1.4-3.5 4-3.5 7.5h3.5"/></symbol>
+<symbol id="g-bytebriefs" viewBox="0 0 24 24"><path d="M13 2.5 4.5 13.5H11l-1 8 8.5-11H12l1-8Z"/></symbol>
+<symbol id="g-abstracted" viewBox="0 0 24 24"><path d="M14 3H7.5A2.5 2.5 0 0 0 5 5.5v13A2.5 2.5 0 0 0 7.5 21h9a2.5 2.5 0 0 0 2.5-2.5V8l-5-5Z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></symbol>
+<symbol id="g-tharoor" viewBox="0 0 24 24"><path d="m5 20 7-16 7 16"/><path d="M7.8 14h8.4"/></symbol>
+<symbol id="g-synapse" viewBox="0 0 24 24"><circle cx="6" cy="7" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="12.5" r="2.4"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="17.5" r="2"/><path d="m7.6 8.3 2.6 2.7M16.6 7.6l-3 3.3M7.6 16.8l2.6-2.4M16.5 16.2l-2.4-2.2"/></symbol>
+<symbol id="g-pulse" viewBox="0 0 24 24"><path d="M2.5 12H6l3-8 5 16 3-8h4.5"/></symbol>
+<symbol id="g-retro" viewBox="0 0 24 24"><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1L3.5 8.5"/><path d="M3.5 3.5v5h5"/><path d="M12 7.5V12l3 2"/></symbol>
+<symbol id="g-gazette" viewBox="0 0 24 24"><path d="M5 21h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v14a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2"/><path d="M11 7.5h7v4h-7z"/><path d="M11 15h7M11 18h4.5"/></symbol>
+<symbol id="g-prior" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.5 1.1 1.3 1.1 2.1v.1h5v-.1c0-.8.4-1.6 1.1-2.1A6 6 0 0 0 12 3Z"/></symbol>
+<symbol id="g-artifact" viewBox="0 0 24 24"><path d="M9 3h6"/><path d="M10 3v3.2C10 8 7 8.6 7 13c0 3.5 2.2 6 3 8h4c.8-2 3-4.5 3-8 0-4.4-3-5-3-6.8V3"/><path d="M7.5 12c-2 0-3 1-3 2.5s1.2 2 2.8 2M16.5 12c2 0 3 1 3 2.5s-1.2 2-2.8 2"/></symbol>
+<symbol id="g-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.8 8.2-2 5.6-5.6 2 2-5.6 5.6-2Z"/></symbol>
+<symbol id="g-culinary" viewBox="0 0 24 24"><path d="M3.5 11.5h17a8.5 8.5 0 0 1-17 0Z"/><path d="M8 20.5h8"/><path d="M8.5 3.5c-1 1.4 1 2.4 0 4M12 3.5c-1 1.4 1 2.4 0 4M15.5 3.5c-1 1.4 1 2.4 0 4"/></symbol>
+<symbol id="g-wander" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c3 2.6 4.5 5.6 4.5 9S15 18.4 12 21c-3-2.6-4.5-5.6-4.5-9S9 5.6 12 3Z"/></symbol>
+<symbol id="g-radio" viewBox="0 0 24 24"><path d="M4.9 19.1a10 10 0 0 1 0-14.2"/><path d="M8 16a5.6 5.6 0 0 1 0-8"/><circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none"/><path d="M16 8a5.6 5.6 0 0 1 0 8"/><path d="M19.1 4.9a10 10 0 0 1 0 14.2"/></symbol>
+<symbol id="g-ekayana" viewBox="0 0 24 24"><path d="M2.5 5.2C5 3.8 8.8 4 12 6c3.2-2 7-2.2 9.5-.8V19c-2.5-1.4-6.3-1.2-9.5.8-3.2-2-7-2.2-9.5-.8V5.2Z"/><path d="M12 6v13.8"/></symbol>
+<symbol id="g-blind" viewBox="0 0 24 24"><rect x="3.5" y="8" width="17" height="4" rx="1"/><path d="M5 12v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-8"/><path d="M12 8v13"/><path d="M12 8c-1.2-3.2-5-3.8-5-1.6C7 8 9.4 8 12 8Zm0 0c1.2-3.2 5-3.8 5-1.6C17 8 14.6 8 12 8Z"/></symbol>
+<symbol id="g-spoiler" viewBox="0 0 24 24"><path d="M3 3l18 18"/><path d="M10.6 5.2A9.6 9.6 0 0 1 12 5c6 0 9.5 7 9.5 7a15 15 0 0 1-2.9 3.7M6.6 6.7A15 15 0 0 0 2.5 12S6 19 12 19a9.4 9.4 0 0 0 4.2-1"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></symbol>
+<symbol id="g-flightdle" viewBox="0 0 24 24"><path d="M12 2.5c.9 0 1.6.9 1.6 2v5l7.9 4.6v2.1l-7.9-2.2v4.2l2.1 1.6v1.8L12 20.7l-3.6.9v-1.8l2.1-1.6v-4.2l-7.9 2.2v-2.1l7.9-4.6v-5c0-1.1.7-2 1.5-2Z"/></symbol>
+<symbol id="g-chroma" viewBox="0 0 24 24"><circle cx="9" cy="9.5" r="5.2"/><circle cx="15" cy="9.5" r="5.2"/><circle cx="12" cy="15" r="5.2"/></symbol>
+<symbol id="g-gauntlet" viewBox="0 0 24 24"><path d="M14.5 17.5 3 6V3h3l11.5 11.5"/><path d="m13 19 6-6"/><path d="m16 16 4 4"/><path d="m19 21 2-2"/><path d="M14.5 6.5 18 3h3v3l-3.5 3.5"/><path d="m5 14 4 4"/><path d="m7 17-3 3"/><path d="m3 19 2 2"/></symbol>
+<symbol id="g-tatkal" viewBox="0 0 24 24"><path d="M3.5 8.5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2v2a2 2 0 0 0 0 3.8v2.2a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2v-2.2a2 2 0 0 0 0-3.8v-2Z"/><path d="M14.5 7v1.5M14.5 11.2v1.6M14.5 15.5V17"/></symbol>
+<symbol id="g-jargon" viewBox="0 0 24 24"><path d="M20.5 11.5a8 8 0 0 1-11.4 7.2L4 20l1.2-4.4A8 8 0 1 1 20.5 11.5Z"/><path d="M8.5 10.5h7M8.5 13.5h4"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+<symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3.2 2.7 5.5 6 .9-4.4 4.3 1 6L12 17l-5.4 2.9 1-6-4.4-4.3 6-.9L12 3.2Z"/></symbol>
+<symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 10.5 15.4 6.5M8.6 13.5l6.8 4"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></symbol>
+<symbol id="i-grid" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></symbol>
+<symbol id="i-shelf" viewBox="0 0 24 24"><path d="M6.5 3.5h11a1 1 0 0 1 1 1V21l-6.5-4.2L5.5 21V4.5a1 1 0 0 1 1-1Z"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></symbol>
+<symbol id="i-linkedin" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7.5 10.5v6"/><circle cx="7.5" cy="7.5" r=".7" fill="currentColor" stroke="none"/><path d="M11.5 16.5v-3.5a2 2 0 0 1 4 0v3.5"/><path d="M11.5 13v3.5"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.6-4.5L4 8"/><path d="M4 4v4h4"/><path d="M4 13a8 8 0 0 0 14.6 4.5L20 16"/><path d="M20 20v-4h-4"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+<symbol id="i-reset" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 1 2.5 5.8"/><path d="M4 6v6h6"/></symbol>
+<symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2.5 20h19L12 3Z"/><path d="M12 10v4M12 17.4v.1"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+</defs></svg>
 
-<header class="site-header">
-  <div class="wrap">
-    <a class="wordmark" href="/">
-      <span class="bars" aria-hidden="true"><span></span><span></span><span></span></span>
-      The Shelf
-    </a>
-    <div class="header-actions">
-      <button type="button" class="theme-toggle" id="themeToggle" aria-label="Switch to dark theme" aria-pressed="false">
-        <span class="knob">
-          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg>
-        </span>
-      </button>
-      <button type="button" class="icon-btn" id="shareBtn" aria-label="Share this page">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 10.5 15.4 6.5M8.6 13.5 15.4 17.5"/></svg>
-      </button>
-      <button type="button" class="icon-btn" id="installBtn" aria-label="Save to home screen">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
-      </button>
-    </div>
+<div class="status-cover" aria-hidden="true"></div>
+
+<header class="topbar wrap">
+  <a class="wordmark" href="/" aria-label="The Shelf, home">
+    <span class="bars" aria-hidden="true"><span></span><span></span><span></span></span>
+    <span>The Shelf</span>
+  </a>
+  <div class="top-actions">
+    <button type="button" class="icon-btn" id="themeQuick" aria-label="Switch to dark theme">
+      <svg class="ico ico-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+      <svg class="ico ico-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+    </button>
+    <button type="button" class="icon-btn" id="shareBtn" aria-label="Share The Shelf"><svg class="ico" aria-hidden="true"><use href="#i-share"/></svg></button>
   </div>
 </header>
 
-<main>
-  <section class="hero wrap">
-    <p class="kicker">Built by Suva</p>
-    <h1>A shelf of small, sharp apps.</h1>
-    <p>Every app here does exactly one thing — a ranking, a checker, a daily digest, a game. No logins, no bloat, no subscriptions. New ones get added to the shelf as they ship.</p>
-  </section>
+<main id="main">
 
-  <div class="wrap">
-    <h2 class="sr-only">Browse apps</h2>
-    <div class="filters" role="group" aria-label="Filter apps by category">
-      <button type="button" class="chip" data-filter="all" aria-pressed="true">All</button>
-      <button type="button" class="chip" data-filter="rankings" aria-pressed="false">Rankings &amp; signals</button>
-      <button type="button" class="chip" data-filter="culture" aria-pressed="false">Culture</button>
-      <button type="button" class="chip" data-filter="discover" aria-pressed="false">Discover</button>
-      <button type="button" class="chip" data-filter="utility" aria-pressed="false">Utility</button>
-      <button type="button" class="chip" data-filter="games" aria-pressed="false">Games</button>
+  <!-- ============ EXPLORE ============ -->
+  <section class="view" id="view-explore" aria-label="Explore apps">
+    <div class="wrap hero">
+      <h1>A shelf of small, sharp apps.</h1>
+      <p class="hero-sub">30 apps, one job each. No logins, no bloat.</p>
+
+      <form class="search" role="search" id="searchForm" onsubmit="return false">
+        <label class="sr-only" for="q">Search apps</label>
+        <svg class="ico" aria-hidden="true"><use href="#i-search"/></svg>
+        <input id="q" type="search" inputmode="search" enterkeyhint="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Search by name or topic" />
+        <button type="button" class="clear" id="clearQ" aria-label="Clear search" hidden><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg></button>
+      </form>
+
+      <div class="install-note" id="installNote" hidden>
+        <span class="install-note-icon" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-download"/></svg></span>
+        <span class="install-note-text">Add to your home screen</span>
+        <button type="button" class="btn small" id="installNoteBtn">Add</button>
+        <button type="button" class="icon-btn quiet" id="installNoteClose" aria-label="Dismiss"><svg class="ico" aria-hidden="true"><use href="#i-x"/></svg></button>
+      </div>
     </div>
 
-    <div class="grid" id="grid">
+    <div id="tabsSentinel" aria-hidden="true"></div>
+    <div class="tabs-wrap" id="tabsWrap">
+      <div class="tabs" role="tablist" aria-label="App categories" id="tabs">
+        <button class="tab" type="button" role="tab" id="tab-all" data-tab="all" data-h="275" aria-selected="true">All</button>
+        <button class="tab" type="button" role="tab" id="tab-around" data-tab="around" data-cat="around" data-h="258" aria-selected="false"><span class="dot" aria-hidden="true"></span>Around you</button>
+        <button class="tab" type="button" role="tab" id="tab-safe" data-tab="safe" data-cat="safe" data-h="150" aria-selected="false"><span class="dot" aria-hidden="true"></span>Health &amp; safety</button>
+        <button class="tab" type="button" role="tab" id="tab-learn" data-tab="learn" data-cat="learn" data-h="315" aria-selected="false"><span class="dot" aria-hidden="true"></span>Learn</button>
+        <button class="tab" type="button" role="tab" id="tab-time" data-tab="time" data-cat="time" data-h="70" aria-selected="false"><span class="dot" aria-hidden="true"></span>Through time</button>
+        <button class="tab" type="button" role="tab" id="tab-world" data-tab="world" data-cat="world" data-h="205" aria-selected="false"><span class="dot" aria-hidden="true"></span>World &amp; culture</button>
+        <button class="tab" type="button" role="tab" id="tab-games" data-tab="games" data-cat="games" data-h="25" aria-selected="false"><span class="dot" aria-hidden="true"></span>Games</button>
+      </div>
+    </div>
 
-      <!-- Rankings & signals -->
-      <a class="card" data-cat="rankings" href="https://indian-traffic-premier-league.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20V10"/><path d="M12 20V4"/><path d="M19 20v-7"/></svg>
-        </div>
-        <h3>Indian Traffic Premier League</h3>
-        <p>Live rankings of how much time your city's traffic steals from you, hour by hour.</p>
-        <div class="card-foot">
-          <span class="card-tag">Rankings</span>
-          <span class="card-open">Open <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
-        </div>
-      </a>
+    <div class="wrap explore-body" id="exploreBody">
+      <p class="result-line" id="resultLine" aria-live="polite" hidden></p>
+      <div id="pick" hidden></div>
 
-      <a class="card" data-cat="rankings" href="https://air-olympics.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20V10"/><path d="M12 20V4"/><path d="M19 20v-7"/></svg>
-        </div>
-        <h3>Air Olympics</h3>
-        <p>100 cities, one daily leaderboard — who breathed the cleanest air yesterday.</p>
-        <div class="card-foot">
-          <span class="card-tag">Rankings</span>
-          <span class="card-open">Open <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
-        </div>
-      </a>
-
-      <a class="card" data-cat="rankings" href="https://byte-briefs.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20V10"/><path d="M12 20V4"/><path d="M19 20v-7"/></svg>
-        </div>
-        <h3>ByteBriefs</h3>
-        <p>Data &amp; AI news in 60 seconds a day. No fluff, one clear takeaway.</p>
-        <div class="card-foot">
-          <span class="card-tag">Signal</span>
-          <span class="card-open">Open <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
-        </div>
-      </a>
-
-      <!-- Culture -->
-      <a class="card" data-cat="culture" href="https://global-holidays.suvadipchakraborty.workers.dev/?v=2" target="_blank" rel="noopener">
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4"/><path d="M5 5h13l-3 4 3 4H5"/></svg>
-        </div>
-        <h3>Cultural Compass</h3>
-        <p>Tap any date and see who's celebrating, remembering or observing something, anywhere in the world.</p>
-        <div class="card-foot">
-          <span class="card-tag">Culture</span>
-          <span class="card-open">Open <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
-        </div>
-      </a>
-
-      <a class="card" data-cat="culture" href="https://global-food.suvadipchakraborty.workers.dev/?v=2" target="_blank" rel="noopener">
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4"/><path d="M5 5h13l-3 4 3 4H5"/></svg>
-        </div>
-        <h3>Culinary Geography</h3>
-        <p>Tap a country, meet its people, taste its story — a real dish tied to a real place.</p>
-        <div class="card-foot">
-          <span class="card-tag">Culture</span>
-          <span class="card-open">Open <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
-        </div>
-      </a>
-
-      <a class="card" data-cat="culture" href="https://spiritual-books.suvadipchakraborty.workers.dev/?v=2" target="_blank" rel="noopener">
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4"/><path d="M5 5h13l-3 4 3 4H5"/></svg>
-        </div>
-        <h3>Ekayana</h3>
-        <p>A quiet, distraction-free room to sit with the Gita, the Quran and the Bible, one verse at a time.</p>
-        <div class="card-foot">
-          <span class="card-tag">Culture</span>
-          <span class="card-open">Open <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
-        </div>
-      </a>
-
-      <a class="card" data-cat="culture" href="https://blind-date-book.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4"/><path d="M5 5h13l-3 4 3 4H5"/></svg>
-        </div>
-        <h3>Blind Date with a Book</h3>
-        <p>No cover, no title — just pick a mood, cozy to dark &amp; twisty, and meet the book waiting to be unwrapped.</p>
-        <div class="card-foot">
-          <span class="card-tag">Culture</span>
-          <span class="card-open">Open <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
-        </div>
-      </a>
-
-      <a class="card" data-cat="culture" href="https://reverse-spoiler.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M8 5v14"/><path d="M16 5v14"/><path d="M3 12h5"/><path d="M16 12h5"/></svg>
-        </div>
-        <h3>The Reverse Spoiler</h3>
-        <p>The anti-watchlist. Type a movie, get a brutal second opinion on why to skip it, plus what else you could do with those two hours.</p>
-        <div class="card-foot">
-          <span class="card-tag">Culture</span>
-          <span class="card-open">Open <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
-        </div>
-      </a>
-
-      <!-- Discover -->
-      <a class="card" data-cat="discover" href="https://synapse.suvadipchakraborty.workers.dev/?v=2" target="_blank" rel="noopener">
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="m14.5 9.5-2 5-5 2 2-5z"/></svg>
-        </div>
-        <h3>Synapse</h3>
-        <p>Human knowledge as a living constellation — tap a spark, watch a field of ideas light up.</p>
-        <div class="card-foot">
-          <span class="card-tag">Discover</span>
-          <span class="card-open">Open <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
-        </div>
-      </a>
-
-      <a class="card" data-cat="discover" href="https://retroactive.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="m14.5 9.5-2 5-5 2 2-5z"/></svg>
-        </div>
-        <h3>Retroactive</h3>
-        <p>A daily time machine through tech and science history — pick a date, meet the past.</p>
-        <div class="card-foot">
-          <span class="card-tag">Discover</span>
-          <span class="card-open">Open <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
-        </div>
-      </a>
-
-      <a class="card" data-cat="discover" href="https://abstracted.suvadipchakraborty.workers.dev/?v=2" target="_blank" rel="noopener">
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="m14.5 9.5-2 5-5 2 2-5z"/></svg>
-        </div>
-        <h3>Abstracted</h3>
-        <p>The latest AI research as clean, swipeable cards. No 40-page PDFs staring you down.</p>
-        <div class="card-foot">
-          <span class="card-tag">Discover</span>
-          <span class="card-open">Open <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
-        </div>
-      </a>
-
-      <a class="card" data-cat="discover" href="https://prior-art.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="m14.5 9.5-2 5-5 2 2-5z"/></svg>
-        </div>
-        <h3>Prior Art</h3>
-        <p>A daily dive into the brilliant, bizarre and genuinely patented. Real diagrams, real inventions.</p>
-        <div class="card-foot">
-          <span class="card-tag">Discover</span>
-          <span class="card-open">Open <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
-        </div>
-      </a>
-
-      <a class="card" data-cat="discover" href="https://news18.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="m14.5 9.5-2 5-5 2 2-5z"/></svg>
-        </div>
-        <h3>The Time Machine Gazette</h3>
-        <p>Open today's date, wind the clock back a century, and read the actual newspapers from that exact day. No summaries, no modern commentary.</p>
-        <div class="card-foot">
-          <span class="card-tag">Discover</span>
-          <span class="card-open">Open <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
-        </div>
-      </a>
-
-      <a class="card" data-cat="discover" href="https://new-word.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M8 10h8"/><path d="M8 14h5"/></svg>
-        </div>
-        <h3>Tharoor Words</h3>
-        <p>Build a vocabulary like Shashi Tharoor. Flashcards of rare words with pronunciation, definitions and examples, and it works offline.</p>
-        <div class="card-foot">
-          <span class="card-tag">Learn</span>
-          <span class="card-open">Open <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
-        </div>
-      </a>
-
-      <a class="card" data-cat="discover" href="https://wanderlust.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3Z"/></svg>
-        </div>
-        <h3>Wanderlust Roulette</h3>
-        <p>Shake your phone and land in a random country, with a photo, budget check, capital, languages, currency and a map link.</p>
-        <div class="card-foot">
-          <span class="card-tag">Travel</span>
-          <span class="card-open">Open <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
-        </div>
-      </a>
-
-      <a class="card" data-cat="discover" href="https://museum.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 12 4l9 5"/><path d="M5 9v9"/><path d="M10 9v9"/><path d="M14 9v9"/><path d="M19 9v9"/><path d="M3 20h18"/></svg>
-        </div>
-        <h3>The Daily Artifact</h3>
-        <p>One object from the world's museums, every day. Switch between Global and India Only, then tap Discover Next for another.</p>
-        <div class="card-foot">
-          <span class="card-tag">Discover</span>
-          <span class="card-open">Open <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
-        </div>
-      </a>
-
-      <a class="card" data-cat="discover" href="https://golden-hour.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="14" r="4"/><path d="M12 5v2"/><path d="M4.5 9.5l1.5 1.5"/><path d="M19.5 9.5 18 11"/><path d="M2 18h20"/></svg>
-        </div>
-        <h3>Radio Golden Hour</h3>
-        <p>Finds the city where the sun is setting right now and plays a real local radio station. Drift west with the dusk line.</p>
-        <div class="card-foot">
-          <span class="card-tag">Listen</span>
-          <span class="card-open">Open <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
-        </div>
-      </a>
-
-      <a class="card" data-cat="games" href="https://plane-above.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
-        </div>
-        <h3>Flightdle</h3>
-        <p>The daily aviation puzzle. See where a real flight took off, the airline and the aircraft, then name the hidden destination in five guesses. Distance and compass hints, a streak, and a shareable emoji grid.</p>
-        <div class="card-foot">
-          <span class="card-tag">Game</span>
-          <span class="card-open">Open <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
-        </div>
-      </a>
-
-      <a class="card" data-cat="discover" href="https://curiosity-pulse.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2.5-6 4 12 2.5-6H21"/></svg>
-        </div>
-        <h3>Curiosity Pulse</h3>
-        <p>What is the world reading right now? Live top Wikipedia articles by country, plus a real-time stream of edits happening this second.</p>
-        <div class="card-foot">
-          <span class="card-tag">Live</span>
-          <span class="card-open">Open <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
-        </div>
-      </a>
-
-      <!-- Utility -->
-      <a class="card" data-cat="utility" href="https://sarkar-sahayak.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v3c0 6 3.4 9.5 8 12 4.6-2.5 8-6 8-12V6z"/><path d="m9.5 12 2 2 4-4"/></svg>
-        </div>
-        <h3>Sarkar Sahayak</h3>
-        <p>Answer three simple questions and see the government schemes you may actually qualify for — eligibility, benefits and steps, in plain language.</p>
-        <div class="card-foot">
-          <span class="card-tag">Utility</span>
-          <span class="card-open">Open <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
-        </div>
-      </a>
-
-      <a class="card" data-cat="utility" href="https://pin-code-buddy.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v3c0 6 3.4 9.5 8 12 4.6-2.5 8-6 8-12V6z"/><path d="m9.5 12 2 2 4-4"/></svg>
-        </div>
-        <h3>PIN Code Buddy</h3>
-        <p>Type any 6-digit Indian PIN code and get the post office, district, state and delivery status, straight from India Post's own records.</p>
-        <div class="card-foot">
-          <span class="card-tag">Utility</span>
-          <span class="card-open">Open <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
-        </div>
-      </a>
-
-      <a class="card" data-cat="utility" href="https://foodrx.suvadipchakraborty.workers.dev/?v=2" target="_blank" rel="noopener">
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v3c0 6 3.4 9.5 8 12 4.6-2.5 8-6 8-12V6z"/><path d="m9.5 12 2 2 4-4"/></svg>
-        </div>
-        <h3>FoodRx</h3>
-        <p>Select your health conditions and get one combined list of foods to eat and avoid — no conflicting advice, just where they overlap.</p>
-        <div class="card-foot">
-          <span class="card-tag">Utility</span>
-          <span class="card-open">Open <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
-        </div>
-      </a>
-
-      <a class="card" data-cat="utility" href="https://train-tracker.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v3c0 6 3.4 9.5 8 12 4.6-2.5 8-6 8-12V6z"/><path d="m9.5 12 2 2 4-4"/></svg>
-        </div>
-        <h3>TrainLive</h3>
-        <p>Enter any Indian Railways train number and see its live running status — current location, next station, platform and delay.</p>
-        <div class="card-foot">
-          <span class="card-tag">Utility</span>
-          <span class="card-open">Open <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
-        </div>
-      </a>
-
-      <a class="card" data-cat="utility" href="https://mandi.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v3c0 6 3.4 9.5 8 12 4.6-2.5 8-6 8-12V6z"/><path d="m9.5 12 2 2 4-4"/></svg>
-        </div>
-        <h3>Mandi Nibs</h3>
-        <p>Today's real wholesale mandi prices, before you leave the house. Know before you buy.</p>
-        <div class="card-foot">
-          <span class="card-tag">Utility</span>
-          <span class="card-open">Open <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
-        </div>
-      </a>
-
-      <a class="card" data-cat="utility" href="https://thaga-shield.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v3c0 6 3.4 9.5 8 12 4.6-2.5 8-6 8-12V6z"/><path d="m9.5 12 2 2 4-4"/></svg>
-        </div>
-        <h3>ThagaShield</h3>
-        <p>Paste a suspicious call, text or chat and get a straight answer in 60 seconds. Nothing leaves your phone.</p>
-        <div class="card-foot">
-          <span class="card-tag">Utility</span>
-          <span class="card-open">Open <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
-        </div>
-      </a>
-
-      <a class="card" data-cat="utility" href="https://side-effect.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5-7-7a4.95 4.95 0 0 1 7-7l7 7a4.95 4.95 0 0 1-7 7z"/><path d="m8.5 8.5 7 7"/></svg>
-        </div>
-        <h3>Side Effect Checker</h3>
-        <p>Type the salt name printed on the strip and get official FDA warnings and the most reported reactions in plain, scannable cards.</p>
-        <div class="card-foot">
-          <span class="card-tag">Utility</span>
-          <span class="card-open">Open <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
-        </div>
-      </a>
-
-      <!-- Games -->
-      <a class="card" data-cat="games" href="https://tatkal.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="9" cy="9" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="15" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="9" r="1" fill="currentColor" stroke="none"/><circle cx="9" cy="15" r="1" fill="currentColor" stroke="none"/></svg>
-        </div>
-        <h3>Tatkal Tapasya</h3>
-        <p>The 10am IRCTC Tatkal booking panic, recreated as a game. No real tickets, all the trauma.</p>
-        <div class="card-foot">
-          <span class="card-tag">Game</span>
-          <span class="card-open">Open <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
-        </div>
-      </a>
-
-      <a class="card" data-cat="games" href="https://trivia-fight.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="9" cy="9" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="15" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="9" r="1" fill="currentColor" stroke="none"/><circle cx="9" cy="15" r="1" fill="currentColor" stroke="none"/></svg>
-        </div>
-        <h3>The Gauntlet</h3>
-        <p>A trivia survival roguelike. Three lives, shrinking timers, and a boss round with no lifelines.</p>
-        <div class="card-foot">
-          <span class="card-tag">Game</span>
-          <span class="card-open">Open <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
-        </div>
-      </a>
-
-      <a class="card" data-cat="games" href="https://jargon-buster.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="9" cy="9" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="15" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="9" r="1" fill="currentColor" stroke="none"/><circle cx="9" cy="15" r="1" fill="currentColor" stroke="none"/></svg>
-        </div>
-        <h3>Jargon Buster</h3>
-        <p>Hit "Synergize Paradigm" for a fresh piece of corporate nonsense, then watch it get decoded into actual human language.</p>
-        <div class="card-foot">
-          <span class="card-tag">Fun</span>
-          <span class="card-open">Open <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
-        </div>
-      </a>
-
-      <a class="card" data-cat="games" href="https://colours.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="9" cy="9" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="15" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="9" r="1" fill="currentColor" stroke="none"/><circle cx="9" cy="15" r="1" fill="currentColor" stroke="none"/></svg>
-        </div>
-        <h3>Chroma Guess</h3>
-        <p>The daily colour game that quietly destroys your confidence. Five rounds, four near-identical options, or go Endless until your first miss.</p>
-        <div class="card-foot">
-          <span class="card-tag">Game</span>
-          <span class="card-open">Open <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span>
-        </div>
-      </a>
-
-      <!-- Always-visible placeholder for what's next -->
-      <div class="card more" data-cat="all" aria-hidden="false">
-        <div class="card-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="M5 12h14"/></svg>
-        </div>
-        <h3>More on the way</h3>
-        <p>This shelf grows as new apps ship. Check back, or follow along on LinkedIn.</p>
+      <div role="tabpanel" id="panel" aria-labelledby="tab-all">
+        <ul class="apps" id="apps">
+<li class="group-head" data-cat="around" data-i="0"><h2>Around you</h2><p>Live data for Indian cities and everyday errands.</p></li>
+<li class="app" data-id="traffic" data-cat="around" data-i="1" data-name="Indian Traffic Premier League" data-keys="traffic city rankings commute delay congestion jam" style="--o:-14">
+  <a class="app-link" href="https://indian-traffic-premier-league.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
+    <span class="app-icon" aria-hidden="true"><svg class="glyph"><use href="#g-traffic"/></svg></span>
+    <span class="app-text">
+      <span class="app-name">Indian Traffic Premier League</span>
+      <span class="app-tag">Which city loses the most time to traffic</span>
+      <span class="app-desc">Live rankings of how much time your city&#x27;s traffic steals from you, hour by hour.</span>
+    </span>
+  </a>
+  <button class="pin" type="button" data-id="traffic" aria-pressed="false" aria-label="Pin Indian Traffic Premier League"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg></button>
+</li>
+<li class="app" data-id="air" data-cat="around" data-i="2" data-name="Air Olympics" data-keys="air quality aqi pollution cities rankings breathe" style="--o:-7">
+  <a class="app-link" href="https://air-olympics.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
+    <span class="app-icon" aria-hidden="true"><svg class="glyph"><use href="#g-air"/></svg></span>
+    <span class="app-text">
+      <span class="app-name">Air Olympics</span>
+      <span class="app-tag">100 cities ranked by yesterday&#x27;s air</span>
+      <span class="app-desc">100 cities, one daily leaderboard — who breathed the cleanest air yesterday.</span>
+    </span>
+  </a>
+  <button class="pin" type="button" data-id="air" aria-pressed="false" aria-label="Pin Air Olympics"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg></button>
+</li>
+<li class="app" data-id="mandi" data-cat="around" data-i="3" data-name="Mandi Nibs" data-keys="vegetables fruit prices market sabzi wholesale produce" style="--o:0">
+  <a class="app-link" href="https://mandi.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
+    <span class="app-icon" aria-hidden="true"><svg class="glyph"><use href="#g-mandi"/></svg></span>
+    <span class="app-text">
+      <span class="app-name">Mandi Nibs</span>
+      <span class="app-tag">Today&#x27;s wholesale mandi prices</span>
+      <span class="app-desc">Today&#x27;s real wholesale mandi prices, before you leave the house. Know before you buy.</span>
+    </span>
+  </a>
+  <button class="pin" type="button" data-id="mandi" aria-pressed="false" aria-label="Pin Mandi Nibs"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg></button>
+</li>
+<li class="app" data-id="train" data-cat="around" data-i="4" data-name="TrainLive" data-keys="railway irctc train status delay platform station" style="--o:7">
+  <a class="app-link" href="https://train-tracker.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
+    <span class="app-icon" aria-hidden="true"><svg class="glyph"><use href="#g-train"/></svg></span>
+    <span class="app-text">
+      <span class="app-name">TrainLive</span>
+      <span class="app-tag">Live running status of any train</span>
+      <span class="app-desc">Enter any Indian Railways train number and see its live running status — current location, next station, platform and delay.</span>
+    </span>
+  </a>
+  <button class="pin" type="button" data-id="train" aria-pressed="false" aria-label="Pin TrainLive"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg></button>
+</li>
+<li class="app" data-id="pin" data-cat="around" data-i="5" data-name="PIN Code Buddy" data-keys="pincode postal post office address zip india post" style="--o:14">
+  <a class="app-link" href="https://pin-code-buddy.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
+    <span class="app-icon" aria-hidden="true"><svg class="glyph"><use href="#g-pin"/></svg></span>
+    <span class="app-text">
+      <span class="app-name">PIN Code Buddy</span>
+      <span class="app-tag">Post office and district for any PIN</span>
+      <span class="app-desc">Type any 6-digit Indian PIN code and get the post office, district, state and delivery status, straight from India Post&#x27;s own records.</span>
+    </span>
+  </a>
+  <button class="pin" type="button" data-id="pin" aria-pressed="false" aria-label="Pin PIN Code Buddy"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg></button>
+</li>
+<li class="app" data-id="sarkar" data-cat="around" data-i="6" data-name="Sarkar Sahayak" data-keys="government schemes yojana eligibility benefits welfare" style="--o:-10">
+  <a class="app-link" href="https://sarkar-sahayak.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
+    <span class="app-icon" aria-hidden="true"><svg class="glyph"><use href="#g-sarkar"/></svg></span>
+    <span class="app-text">
+      <span class="app-name">Sarkar Sahayak</span>
+      <span class="app-tag">Government schemes you may qualify for</span>
+      <span class="app-desc">Answer three simple questions and see the government schemes you may actually qualify for — eligibility, benefits and steps, in plain language.</span>
+    </span>
+  </a>
+  <button class="pin" type="button" data-id="sarkar" aria-pressed="false" aria-label="Pin Sarkar Sahayak"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg></button>
+</li>
+<li class="group-head" data-cat="safe" data-i="7"><h2>Health &amp; safety</h2><p>Checks worth doing before you tap, take or eat.</p></li>
+<li class="app" data-id="thaga" data-cat="safe" data-i="8" data-name="ThagaShield" data-keys="scam fraud phishing spam cyber safety whatsapp thaga" style="--o:-14">
+  <a class="app-link" href="https://thaga-shield.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
+    <span class="app-icon" aria-hidden="true"><svg class="glyph"><use href="#g-thaga"/></svg></span>
+    <span class="app-text">
+      <span class="app-name">ThagaShield</span>
+      <span class="app-tag">Check a suspicious call, text or chat</span>
+      <span class="app-desc">Paste a suspicious call, text or chat and get a straight answer in 60 seconds. Nothing leaves your phone.</span>
+    </span>
+  </a>
+  <button class="pin" type="button" data-id="thaga" aria-pressed="false" aria-label="Pin ThagaShield"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg></button>
+</li>
+<li class="app" data-id="side" data-cat="safe" data-i="9" data-name="Side Effect Checker" data-keys="medicine drug salt tablet pharmacy reactions warnings" style="--o:-7">
+  <a class="app-link" href="https://side-effect.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
+    <span class="app-icon" aria-hidden="true"><svg class="glyph"><use href="#g-side"/></svg></span>
+    <span class="app-text">
+      <span class="app-name">Side Effect Checker</span>
+      <span class="app-tag">Official FDA warnings by medicine salt</span>
+      <span class="app-desc">Type the salt name printed on the strip and get official FDA warnings and the most reported reactions in plain, scannable cards.</span>
+    </span>
+  </a>
+  <button class="pin" type="button" data-id="side" aria-pressed="false" aria-label="Pin Side Effect Checker"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg></button>
+</li>
+<li class="app" data-id="foodrx" data-cat="safe" data-i="10" data-name="FoodRx" data-keys="diet nutrition food eat avoid health conditions" style="--o:0">
+  <a class="app-link" href="https://foodrx.suvadipchakraborty.workers.dev/?v=2" target="_blank" rel="noopener">
+    <span class="app-icon" aria-hidden="true"><svg class="glyph"><use href="#g-foodrx"/></svg></span>
+    <span class="app-text">
+      <span class="app-name">FoodRx</span>
+      <span class="app-tag">What to eat and avoid, all in one list</span>
+      <span class="app-desc">Select your health conditions and get one combined list of foods to eat and avoid — no conflicting advice, just where they overlap.</span>
+    </span>
+  </a>
+  <button class="pin" type="button" data-id="foodrx" aria-pressed="false" aria-label="Pin FoodRx"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg></button>
+</li>
+<li class="group-head" data-cat="learn" data-i="11"><h2>Learn</h2><p>Quick reads and flashcards for curious minds.</p></li>
+<li class="app" data-id="bytebriefs" data-cat="learn" data-i="12" data-name="ByteBriefs" data-keys="news data ai analytics daily digest briefing" style="--o:-14">
+  <a class="app-link" href="https://byte-briefs.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
+    <span class="app-icon" aria-hidden="true"><svg class="glyph"><use href="#g-bytebriefs"/></svg></span>
+    <span class="app-text">
+      <span class="app-name">ByteBriefs</span>
+      <span class="app-tag">Data &amp; AI news in 60 seconds</span>
+      <span class="app-desc">Data &amp; AI news in 60 seconds a day. No fluff, one clear takeaway.</span>
+    </span>
+  </a>
+  <button class="pin" type="button" data-id="bytebriefs" aria-pressed="false" aria-label="Pin ByteBriefs"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg></button>
+</li>
+<li class="app" data-id="abstracted" data-cat="learn" data-i="13" data-name="Abstracted" data-keys="ai research papers arxiv summaries cards" style="--o:-7">
+  <a class="app-link" href="https://abstracted.suvadipchakraborty.workers.dev/?v=2" target="_blank" rel="noopener">
+    <span class="app-icon" aria-hidden="true"><svg class="glyph"><use href="#g-abstracted"/></svg></span>
+    <span class="app-text">
+      <span class="app-name">Abstracted</span>
+      <span class="app-tag">Latest AI research as swipeable cards</span>
+      <span class="app-desc">The latest AI research as clean, swipeable cards. No 40-page PDFs staring you down.</span>
+    </span>
+  </a>
+  <button class="pin" type="button" data-id="abstracted" aria-pressed="false" aria-label="Pin Abstracted"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg></button>
+</li>
+<li class="app" data-id="tharoor" data-cat="learn" data-i="14" data-name="Tharoor Words" data-keys="vocabulary words flashcards english dictionary offline learn" style="--o:0">
+  <a class="app-link" href="https://new-word.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
+    <span class="app-icon" aria-hidden="true"><svg class="glyph"><use href="#g-tharoor"/></svg></span>
+    <span class="app-text">
+      <span class="app-name">Tharoor Words</span>
+      <span class="app-tag">Rare-word flashcards that work offline</span>
+      <span class="app-desc">Build a vocabulary like Shashi Tharoor. Flashcards of rare words with pronunciation, definitions and examples, and it works offline.</span>
+    </span>
+  </a>
+  <button class="pin" type="button" data-id="tharoor" aria-pressed="false" aria-label="Pin Tharoor Words"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg></button>
+</li>
+<li class="app" data-id="synapse" data-cat="learn" data-i="15" data-name="Synapse" data-keys="knowledge ideas map constellation explore network" style="--o:7">
+  <a class="app-link" href="https://synapse.suvadipchakraborty.workers.dev/?v=2" target="_blank" rel="noopener">
+    <span class="app-icon" aria-hidden="true"><svg class="glyph"><use href="#g-synapse"/></svg></span>
+    <span class="app-text">
+      <span class="app-name">Synapse</span>
+      <span class="app-tag">Human knowledge as a living constellation</span>
+      <span class="app-desc">Human knowledge as a living constellation — tap a spark, watch a field of ideas light up.</span>
+    </span>
+  </a>
+  <button class="pin" type="button" data-id="synapse" aria-pressed="false" aria-label="Pin Synapse"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg></button>
+</li>
+<li class="app" data-id="pulse" data-cat="learn" data-i="16" data-name="Curiosity Pulse" data-keys="wikipedia trending reading live edits countries" style="--o:14">
+  <a class="app-link" href="https://curiosity-pulse.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
+    <span class="app-icon" aria-hidden="true"><svg class="glyph"><use href="#g-pulse"/></svg></span>
+    <span class="app-text">
+      <span class="app-name">Curiosity Pulse <span class="badge-new">New</span></span>
+      <span class="app-tag">What the world is reading right now</span>
+      <span class="app-desc">What is the world reading right now? Live top Wikipedia articles by country, plus a real-time stream of edits happening this second.</span>
+    </span>
+  </a>
+  <button class="pin" type="button" data-id="pulse" aria-pressed="false" aria-label="Pin Curiosity Pulse"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg></button>
+</li>
+<li class="group-head" data-cat="time" data-i="17"><h2>Through time</h2><p>Old news, inventions and objects, one day at a time.</p></li>
+<li class="app" data-id="retro" data-cat="time" data-i="18" data-name="Retroactive" data-keys="history tech science timeline on this day" style="--o:-14">
+  <a class="app-link" href="https://retroactive.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
+    <span class="app-icon" aria-hidden="true"><svg class="glyph"><use href="#g-retro"/></svg></span>
+    <span class="app-text">
+      <span class="app-name">Retroactive</span>
+      <span class="app-tag">Tech and science history, any date</span>
+      <span class="app-desc">A daily time machine through tech and science history — pick a date, meet the past.</span>
+    </span>
+  </a>
+  <button class="pin" type="button" data-id="retro" aria-pressed="false" aria-label="Pin Retroactive"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg></button>
+</li>
+<li class="app" data-id="gazette" data-cat="time" data-i="19" data-name="The Time Machine Gazette" data-keys="newspaper history archive century old chronicling" style="--o:-7">
+  <a class="app-link" href="https://news18.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
+    <span class="app-icon" aria-hidden="true"><svg class="glyph"><use href="#g-gazette"/></svg></span>
+    <span class="app-text">
+      <span class="app-name">The Time Machine Gazette</span>
+      <span class="app-tag">Read newspapers from 100 years ago today</span>
+      <span class="app-desc">Open today&#x27;s date, wind the clock back a century, and read the actual newspapers from that exact day. No summaries, no modern commentary.</span>
+    </span>
+  </a>
+  <button class="pin" type="button" data-id="gazette" aria-pressed="false" aria-label="Pin The Time Machine Gazette"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg></button>
+</li>
+<li class="app" data-id="prior" data-cat="time" data-i="20" data-name="Prior Art" data-keys="patents inventions diagrams history" style="--o:0">
+  <a class="app-link" href="https://prior-art.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
+    <span class="app-icon" aria-hidden="true"><svg class="glyph"><use href="#g-prior"/></svg></span>
+    <span class="app-text">
+      <span class="app-name">Prior Art</span>
+      <span class="app-tag">A daily dive into odd, brilliant patents</span>
+      <span class="app-desc">A daily dive into the brilliant, bizarre and genuinely patented. Real diagrams, real inventions.</span>
+    </span>
+  </a>
+  <button class="pin" type="button" data-id="prior" aria-pressed="false" aria-label="Pin Prior Art"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg></button>
+</li>
+<li class="app" data-id="artifact" data-cat="time" data-i="21" data-name="The Daily Artifact" data-keys="museum objects art history india collection" style="--o:7">
+  <a class="app-link" href="https://museum.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
+    <span class="app-icon" aria-hidden="true"><svg class="glyph"><use href="#g-artifact"/></svg></span>
+    <span class="app-text">
+      <span class="app-name">The Daily Artifact</span>
+      <span class="app-tag">One museum object, every day</span>
+      <span class="app-desc">One object from the world&#x27;s museums, every day. Switch between Global and India Only, then tap Discover Next for another.</span>
+    </span>
+  </a>
+  <button class="pin" type="button" data-id="artifact" aria-pressed="false" aria-label="Pin The Daily Artifact"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg></button>
+</li>
+<li class="group-head" data-cat="world" data-i="22"><h2>World &amp; culture</h2><p>Places, food, faith, books and film from everywhere.</p></li>
+<li class="app" data-id="compass" data-cat="world" data-i="23" data-name="Cultural Compass" data-keys="holidays festivals calendar observances world dates" style="--o:-14">
+  <a class="app-link" href="https://global-holidays.suvadipchakraborty.workers.dev/?v=2" target="_blank" rel="noopener">
+    <span class="app-icon" aria-hidden="true"><svg class="glyph"><use href="#g-compass"/></svg></span>
+    <span class="app-text">
+      <span class="app-name">Cultural Compass</span>
+      <span class="app-tag">Who&#x27;s celebrating what, on any date</span>
+      <span class="app-desc">Tap any date and see who&#x27;s celebrating, remembering or observing something, anywhere in the world.</span>
+    </span>
+  </a>
+  <button class="pin" type="button" data-id="compass" aria-pressed="false" aria-label="Pin Cultural Compass"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg></button>
+</li>
+<li class="app" data-id="culinary" data-cat="world" data-i="24" data-name="Culinary Geography" data-keys="food dishes cuisine recipes countries" style="--o:-7">
+  <a class="app-link" href="https://global-food.suvadipchakraborty.workers.dev/?v=2" target="_blank" rel="noopener">
+    <span class="app-icon" aria-hidden="true"><svg class="glyph"><use href="#g-culinary"/></svg></span>
+    <span class="app-text">
+      <span class="app-name">Culinary Geography</span>
+      <span class="app-tag">A real dish for every country</span>
+      <span class="app-desc">Tap a country, meet its people, taste its story — a real dish tied to a real place.</span>
+    </span>
+  </a>
+  <button class="pin" type="button" data-id="culinary" aria-pressed="false" aria-label="Pin Culinary Geography"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg></button>
+</li>
+<li class="app" data-id="wander" data-cat="world" data-i="25" data-name="Wanderlust Roulette" data-keys="travel random country trip map shake destination" style="--o:0">
+  <a class="app-link" href="https://wanderlust.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
+    <span class="app-icon" aria-hidden="true"><svg class="glyph"><use href="#g-wander"/></svg></span>
+    <span class="app-text">
+      <span class="app-name">Wanderlust Roulette</span>
+      <span class="app-tag">Shake your phone, land in a random country</span>
+      <span class="app-desc">Shake your phone and land in a random country, with a photo, budget check, capital, languages, currency and a map link.</span>
+    </span>
+  </a>
+  <button class="pin" type="button" data-id="wander" aria-pressed="false" aria-label="Pin Wanderlust Roulette"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg></button>
+</li>
+<li class="app" data-id="radio" data-cat="world" data-i="26" data-name="Radio Golden Hour" data-keys="radio music stations sunset live listen" style="--o:7">
+  <a class="app-link" href="https://golden-hour.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
+    <span class="app-icon" aria-hidden="true"><svg class="glyph"><use href="#g-radio"/></svg></span>
+    <span class="app-text">
+      <span class="app-name">Radio Golden Hour <span class="badge-new">New</span></span>
+      <span class="app-tag">Local radio where the sun is setting now</span>
+      <span class="app-desc">Finds the city where the sun is setting right now and plays a real local radio station. Drift west with the dusk line.</span>
+    </span>
+  </a>
+  <button class="pin" type="button" data-id="radio" aria-pressed="false" aria-label="Pin Radio Golden Hour"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg></button>
+</li>
+<li class="app" data-id="ekayana" data-cat="world" data-i="27" data-name="Ekayana" data-keys="gita quran bible scripture verses spiritual religion" style="--o:14">
+  <a class="app-link" href="https://spiritual-books.suvadipchakraborty.workers.dev/?v=2" target="_blank" rel="noopener">
+    <span class="app-icon" aria-hidden="true"><svg class="glyph"><use href="#g-ekayana"/></svg></span>
+    <span class="app-text">
+      <span class="app-name">Ekayana</span>
+      <span class="app-tag">A quiet room for the Gita, Quran and Bible</span>
+      <span class="app-desc">A quiet, distraction-free room to sit with the Gita, the Quran and the Bible, one verse at a time.</span>
+    </span>
+  </a>
+  <button class="pin" type="button" data-id="ekayana" aria-pressed="false" aria-label="Pin Ekayana"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg></button>
+</li>
+<li class="app" data-id="blind" data-cat="world" data-i="28" data-name="Blind Date with a Book" data-keys="books reading mood random novel gift" style="--o:-10">
+  <a class="app-link" href="https://blind-date-book.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
+    <span class="app-icon" aria-hidden="true"><svg class="glyph"><use href="#g-blind"/></svg></span>
+    <span class="app-text">
+      <span class="app-name">Blind Date with a Book</span>
+      <span class="app-tag">Pick a mood, unwrap a mystery book</span>
+      <span class="app-desc">No cover, no title — just pick a mood, cozy to dark &amp; twisty, and meet the book waiting to be unwrapped.</span>
+    </span>
+  </a>
+  <button class="pin" type="button" data-id="blind" aria-pressed="false" aria-label="Pin Blind Date with a Book"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg></button>
+</li>
+<li class="app" data-id="spoiler" data-cat="world" data-i="29" data-name="The Reverse Spoiler" data-keys="movies film cinema skip watchlist review" style="--o:4">
+  <a class="app-link" href="https://reverse-spoiler.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
+    <span class="app-icon" aria-hidden="true"><svg class="glyph"><use href="#g-spoiler"/></svg></span>
+    <span class="app-text">
+      <span class="app-name">The Reverse Spoiler</span>
+      <span class="app-tag">A brutal second opinion on any movie</span>
+      <span class="app-desc">The anti-watchlist. Type a movie, get a brutal second opinion on why to skip it, plus what else you could do with those two hours.</span>
+    </span>
+  </a>
+  <button class="pin" type="button" data-id="spoiler" aria-pressed="false" aria-label="Pin The Reverse Spoiler"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg></button>
+</li>
+<li class="group-head" data-cat="games" data-i="30"><h2>Games</h2><p>Daily puzzles and quick rounds. No sign-up.</p></li>
+<li class="app" data-id="flightdle" data-cat="games" data-i="31" data-name="Flightdle" data-keys="wordle flights planes aviation daily puzzle airports" style="--o:-14">
+  <a class="app-link" href="https://plane-above.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
+    <span class="app-icon" aria-hidden="true"><svg class="glyph"><use href="#g-flightdle"/></svg></span>
+    <span class="app-text">
+      <span class="app-name">Flightdle <span class="badge-new">New</span></span>
+      <span class="app-tag">Daily puzzle: name the flight&#x27;s destination</span>
+      <span class="app-desc">The daily aviation puzzle. See where a real flight took off, the airline and the aircraft, then name the hidden destination in five guesses. Distance and compass hints, a streak, and a shareable emoji grid.</span>
+    </span>
+  </a>
+  <button class="pin" type="button" data-id="flightdle" aria-pressed="false" aria-label="Pin Flightdle"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg></button>
+</li>
+<li class="app" data-id="chroma" data-cat="games" data-i="32" data-name="Chroma Guess" data-keys="colour color game daily puzzle eyes" style="--o:-7">
+  <a class="app-link" href="https://colours.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
+    <span class="app-icon" aria-hidden="true"><svg class="glyph"><use href="#g-chroma"/></svg></span>
+    <span class="app-text">
+      <span class="app-name">Chroma Guess</span>
+      <span class="app-tag">A daily colour game that humbles you</span>
+      <span class="app-desc">The daily colour game that quietly destroys your confidence. Five rounds, four near-identical options, or go Endless until your first miss.</span>
+    </span>
+  </a>
+  <button class="pin" type="button" data-id="chroma" aria-pressed="false" aria-label="Pin Chroma Guess"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg></button>
+</li>
+<li class="app" data-id="gauntlet" data-cat="games" data-i="33" data-name="The Gauntlet" data-keys="trivia quiz roguelike game lives boss" style="--o:0">
+  <a class="app-link" href="https://trivia-fight.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
+    <span class="app-icon" aria-hidden="true"><svg class="glyph"><use href="#g-gauntlet"/></svg></span>
+    <span class="app-text">
+      <span class="app-name">The Gauntlet</span>
+      <span class="app-tag">Trivia survival with three lives</span>
+      <span class="app-desc">A trivia survival roguelike. Three lives, shrinking timers, and a boss round with no lifelines.</span>
+    </span>
+  </a>
+  <button class="pin" type="button" data-id="gauntlet" aria-pressed="false" aria-label="Pin The Gauntlet"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg></button>
+</li>
+<li class="app" data-id="tatkal" data-cat="games" data-i="34" data-name="Tatkal Tapasya" data-keys="irctc ticket booking game railway panic" style="--o:7">
+  <a class="app-link" href="https://tatkal.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
+    <span class="app-icon" aria-hidden="true"><svg class="glyph"><use href="#g-tatkal"/></svg></span>
+    <span class="app-text">
+      <span class="app-name">Tatkal Tapasya</span>
+      <span class="app-tag">The 10am Tatkal panic, as a game</span>
+      <span class="app-desc">The 10am IRCTC Tatkal booking panic, recreated as a game. No real tickets, all the trauma.</span>
+    </span>
+  </a>
+  <button class="pin" type="button" data-id="tatkal" aria-pressed="false" aria-label="Pin Tatkal Tapasya"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg></button>
+</li>
+<li class="app" data-id="jargon" data-cat="games" data-i="35" data-name="Jargon Buster" data-keys="corporate office buzzwords humour game decode" style="--o:14">
+  <a class="app-link" href="https://jargon-buster.suvadipchakraborty.workers.dev/" target="_blank" rel="noopener">
+    <span class="app-icon" aria-hidden="true"><svg class="glyph"><use href="#g-jargon"/></svg></span>
+    <span class="app-text">
+      <span class="app-name">Jargon Buster</span>
+      <span class="app-tag">Corporate nonsense, decoded</span>
+      <span class="app-desc">Hit &quot;Synergize Paradigm&quot; for a fresh piece of corporate nonsense, then watch it get decoded into actual human language.</span>
+    </span>
+  </a>
+  <button class="pin" type="button" data-id="jargon" aria-pressed="false" aria-label="Pin Jargon Buster"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg></button>
+</li>
+        </ul>
       </div>
 
+      <div class="empty" id="searchEmpty" hidden>
+        <span class="empty-icon" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-search"/></svg></span>
+        <h2>Nothing matches “<span id="emptyQ"></span>”</h2>
+        <p>Try a topic, like train, quiz or news. Or tell Suva what you were hoping to find.</p>
+        <a class="btn" href="mailto:suvadipchakraborty@gmail.com?subject=App%20idea%20for%20The%20Shelf&amp;body=Hi%20Suva%2C%0D%0A%0D%0AMy%20app%20idea%2C%20in%20one%20line%3A%0D%0A%0D%0AWho%20it%20would%20help%3A%0D%0A%0D%0AWhy%20it%20would%20be%20useful%3A%0D%0A%0D%0A" data-mail="idea">Suggest an app</a>
+      </div>
+
+      <div class="end-note" id="endNote">
+        <p>That's all 30 for now. Got an idea for the next one?</p>
+        <a class="btn" href="mailto:suvadipchakraborty@gmail.com?subject=App%20idea%20for%20The%20Shelf&amp;body=Hi%20Suva%2C%0D%0A%0D%0AMy%20app%20idea%2C%20in%20one%20line%3A%0D%0A%0D%0AWho%20it%20would%20help%3A%0D%0A%0D%0AWhy%20it%20would%20be%20useful%3A%0D%0A%0D%0A" data-mail="idea">Suggest an app</a>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <!-- ============ MY SHELF ============ -->
+  <section class="view" id="view-mine" aria-labelledby="mineTitle" hidden>
+    <div class="wrap">
+      <h1 class="view-title" id="mineTitle" tabindex="-1">My shelf</h1>
+      <p class="view-sub">Your pinned apps and the ones you opened lately. Saved on this device only.</p>
+
+      <div class="empty" id="mineEmpty" hidden>
+        <span class="empty-icon" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#i-star"/></svg></span>
+        <h2>Nothing on your shelf yet</h2>
+        <p>Tap the star on any app to pin it here. Press and hold works too, in any layout.</p>
+        <button type="button" class="btn" data-go="explore">Browse apps</button>
+      </div>
+
+      <section id="minePinned" class="mine-sec" hidden>
+        <div class="sec-head"><h2>Pinned</h2></div>
+        <p class="hint" id="pinnedHint" hidden>Tap the star on any app to pin it here.</p>
+        <ul class="apps" id="pinnedList"></ul>
+      </section>
+
+      <section id="mineRecent" class="mine-sec" hidden>
+        <div class="sec-head"><h2>Recently opened</h2><button type="button" class="link-btn" id="clearRecent">Clear</button></div>
+        <ul class="apps" id="recentList"></ul>
+      </section>
+    </div>
+  </section>
+
+  <!-- ============ SETTINGS ============ -->
+  <section class="view" id="view-settings" aria-labelledby="settingsTitle" hidden>
+    <div class="wrap settings">
+      <h1 class="view-title" id="settingsTitle" tabindex="-1">Settings</h1>
+      <p class="view-sub">Make The Shelf yours. Changes apply instantly and stay on this device.</p>
+
+      <div class="preview" aria-hidden="true">
+        <span class="app-icon" data-cat="around" style="--o:-7"><svg class="glyph"><use href="#g-traffic"/></svg></span>
+        <span class="app-icon" data-cat="safe" style="--o:0"><svg class="glyph"><use href="#g-thaga"/></svg></span>
+        <span class="app-icon" data-cat="learn" style="--o:7"><svg class="glyph"><use href="#g-bytebriefs"/></svg></span>
+        <span class="app-icon" data-cat="time" style="--o:0"><svg class="glyph"><use href="#g-retro"/></svg></span>
+        <span class="app-icon" data-cat="world" style="--o:-7"><svg class="glyph"><use href="#g-culinary"/></svg></span>
+        <span class="app-icon" data-cat="games" style="--o:0"><svg class="glyph"><use href="#g-flightdle"/></svg></span>
+      </div>
+
+      <div class="group">
+        <h2 class="group-title">Look and feel</h2>
+        <div class="panel">
+          <div class="setting">
+            <div class="setting-head"><h3>Theme</h3><p>Auto follows your phone.</p></div>
+            <div class="seg" role="group" aria-label="Theme" data-pref="theme">
+              <button type="button" data-value="system">Auto</button>
+              <button type="button" data-value="light">Light</button>
+              <button type="button" data-value="dark">Dark</button>
+            </div>
+          </div>
+          <div class="setting">
+            <div class="setting-head"><h3>Icon style</h3><p>How app icons are coloured.</p></div>
+            <div class="seg" role="group" aria-label="Icon style" data-pref="style">
+              <button type="button" data-value="vivid">Vivid</button>
+              <button type="button" data-value="soft">Soft</button>
+              <button type="button" data-value="mono">Mono</button>
+            </div>
+          </div>
+          <div class="setting">
+            <div class="setting-head"><h3>Text size</h3></div>
+            <div class="seg" role="group" aria-label="Text size" data-pref="size">
+              <button type="button" data-value="sm">Small</button>
+              <button type="button" data-value="md">Default</button>
+              <button type="button" data-value="lg">Large</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="group">
+        <h2 class="group-title">Layout</h2>
+        <div class="panel">
+          <div class="setting">
+            <div class="setting-head"><h3>View</h3><p>Tiles show a line about each app, List shows the full story, Icons fits the most on screen.</p></div>
+            <div class="seg" role="group" aria-label="View" data-pref="layout">
+              <button type="button" data-value="tiles">Tiles</button>
+              <button type="button" data-value="list">List</button>
+              <button type="button" data-value="icons">Icons</button>
+            </div>
+          </div>
+          <div class="setting">
+            <div class="setting-head"><h3>Order</h3></div>
+            <div class="seg" role="group" aria-label="Order" data-pref="sort">
+              <button type="button" data-value="curated">By category</button>
+              <button type="button" data-value="az">A to Z</button>
+            </div>
+          </div>
+          <div class="setting row">
+            <div class="setting-head"><h3>Reduce motion</h3><p>Turn off animations and swipe effects.</p></div>
+            <button type="button" class="switch" id="motionSwitch" role="switch" aria-checked="false" aria-label="Reduce motion"><span></span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="group">
+        <h2 class="group-title">This app</h2>
+        <div class="panel">
+          <button type="button" class="action" id="installRow">
+            <svg class="ico" aria-hidden="true"><use href="#i-download"/></svg>
+            <span class="action-text"><strong>Add to home screen</strong><span id="installSub">Open The Shelf like an app</span></span>
+            <svg class="ico" aria-hidden="true"><use href="#i-chevron"/></svg>
+          </button>
+          <button type="button" class="action" id="updateRow">
+            <svg class="ico" aria-hidden="true"><use href="#i-refresh"/></svg>
+            <span class="action-text"><strong>Check for updates</strong><span>Reload to get the latest version</span></span>
+            <svg class="ico" aria-hidden="true"><use href="#i-chevron"/></svg>
+          </button>
+          <button type="button" class="action" id="shareRow">
+            <svg class="ico" aria-hidden="true"><use href="#i-share"/></svg>
+            <span class="action-text"><strong>Share The Shelf</strong><span>Send the link to a friend</span></span>
+            <svg class="ico" aria-hidden="true"><use href="#i-chevron"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="group">
+        <h2 class="group-title">Help and feedback</h2>
+        <div class="panel">
+          <a class="action" href="mailto:suvadipchakraborty@gmail.com?subject=Feedback%20on%20The%20Shelf&amp;body=Hi%20Suva%2C%0D%0A%0D%0AWhat%20I%20was%20trying%20to%20do%3A%0D%0A%0D%0A%0D%0AWhat%20happened%2C%20or%20what%20I%27d%20change%3A%0D%0A%0D%0A" data-mail="feedback">
+            <svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>
+            <span class="action-text"><strong>Send feedback</strong><span>Opens an email with the details filled in</span></span>
+            <svg class="ico" aria-hidden="true"><use href="#i-chevron"/></svg>
+          </a>
+          <a class="action" href="mailto:suvadipchakraborty@gmail.com?subject=Broken%20app%20on%20The%20Shelf&amp;body=Hi%20Suva%2C%0D%0A%0D%0AWhich%20app%20is%20broken%3A%0D%0A%0D%0AWhat%20went%20wrong%3A%0D%0A%0D%0AWhat%20I%20expected%3A%0D%0A%0D%0A" data-mail="broken">
+            <svg class="ico" aria-hidden="true"><use href="#i-alert"/></svg>
+            <span class="action-text"><strong>Report a broken app</strong><span>Tell Suva which one and what happened</span></span>
+            <svg class="ico" aria-hidden="true"><use href="#i-chevron"/></svg>
+          </a>
+          <a class="action" href="mailto:suvadipchakraborty@gmail.com?subject=App%20idea%20for%20The%20Shelf&amp;body=Hi%20Suva%2C%0D%0A%0D%0AMy%20app%20idea%2C%20in%20one%20line%3A%0D%0A%0D%0AWho%20it%20would%20help%3A%0D%0A%0D%0AWhy%20it%20would%20be%20useful%3A%0D%0A%0D%0A" data-mail="idea">
+            <svg class="ico" aria-hidden="true"><use href="#i-plus"/></svg>
+            <span class="action-text"><strong>Suggest an app</strong><span>Pitch the next thing on the shelf</span></span>
+            <svg class="ico" aria-hidden="true"><use href="#i-chevron"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="group">
+        <h2 class="group-title">Your data</h2>
+        <div class="panel">
+          <button type="button" class="action" id="clearDataRow">
+            <svg class="ico" aria-hidden="true"><use href="#i-trash"/></svg>
+            <span class="action-text"><strong>Clear pins and recent apps</strong><span id="clearDataSub">Removes everything on My shelf</span></span>
+            <svg class="ico" aria-hidden="true"><use href="#i-chevron"/></svg>
+          </button>
+          <button type="button" class="action" id="resetRow">
+            <svg class="ico" aria-hidden="true"><use href="#i-reset"/></svg>
+            <span class="action-text"><strong>Reset settings</strong><span id="resetSub">Back to the default look</span></span>
+            <svg class="ico" aria-hidden="true"><use href="#i-chevron"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="about">
+        <span class="bars" aria-hidden="true"><span></span><span></span><span></span></span>
+        <p><strong>The Shelf <span id="versionLabel">2.0</span></strong><br />30 apps, built by Suva.</p>
+        <a class="link-btn" href="https://www.linkedin.com/in/suva" target="_blank" rel="noopener">Stay in touch on LinkedIn</a>
+      </div>
+    </div>
+  </section>
 </main>
 
-<footer class="site-footer">
-  <div class="wrap footer-row">
-    <div class="footer-credit">
-      Built by Suva
-      <span>30 apps and counting.</span>
-    </div>
-    <nav class="footer-links" aria-label="Contact">
-      <a href="mailto:suvadipchakraborty@gmail.com?subject=Feedback%20on%20The%20Shelf&body=Hey%20Suva%2C%0A%0AI%20was%20looking%20at%20The%20Shelf%20and%20wanted%20to%20say...">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>
-        Send feedback
-      </a>
-      <a href="https://www.linkedin.com/in/suva" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7.5 10.5v6"/><circle cx="7.5" cy="7.5" r="0.6" fill="currentColor" stroke="none"/><path d="M11.5 16.5v-3.5a2 2 0 0 1 4 0v3.5"/><path d="M11.5 13v3.5"/></svg>
-        Stay in touch
-      </a>
-    </nav>
-  </div>
-</footer>
+<nav class="dock" aria-label="Primary" id="dock">
+  <button type="button" data-view="explore" aria-current="page"><svg class="ico" aria-hidden="true"><use href="#i-grid"/></svg><span>Explore</span></button>
+  <button type="button" data-view="mine"><svg class="ico" aria-hidden="true"><use href="#i-shelf"/></svg><span>My shelf</span><i class="dock-badge" id="pinBadge" hidden></i></button>
+  <button type="button" data-view="settings"><svg class="ico" aria-hidden="true"><use href="#i-sliders"/></svg><span>Settings</span></button>
+</nav>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -546,7 +996,7 @@
     <h2 id="sheetTitle">Save to your home screen</h2>
     <p id="sheetCopy">Install The Shelf like an app — one tap to reach it next time.</p>
     <ol id="sheetSteps"></ol>
-    <button type="button" class="sheet-close" id="sheetClose">Got it</button>
+    <button type="button" class="btn block" id="sheetClose">Got it</button>
   </div>
 </div>
 
