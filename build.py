@@ -24,7 +24,7 @@ CATEGORIES = [
 ]
 
 # Apps flagged here get a "New" badge. Remove ids once they stop being new.
-NEW = {"radio", "flightdle", "pulse"}
+NEW = {"radio", "flightdle", "pulse", "reality", "altsurf", "address", "chuckle", "safebite"}
 
 # id: (name, category, short tagline, long description, url, search keywords)
 def u(sub, q=""):
@@ -56,6 +56,14 @@ APPS = [
      "Government schemes you may qualify for",
      "Answer three simple questions and see the government schemes you may actually qualify for — eligibility, benefits and steps, in plain language.",
      u("sarkar-sahayak"), "government schemes yojana eligibility benefits welfare"),
+    ("reality", "Reality Check", "around",
+     "What your salary becomes in a new city",
+     "Compare two cities side by side on rent, utilities and everyday costs, then see what your current salary is really worth in the new place, in your own currency.",
+     u("reality-check"), "relocation moving city salary cost of living rent calculator compare"),
+    ("address", "AddressCraft India", "around",
+     "Clean, split Indian addresses to paste",
+     "Turn any area, city or PIN code into properly split fields (house number, street, locality, city, state and PIN), ready to paste into checkout forms.",
+     u("addresscraft"), "address format checkout form delivery pincode locality india split fields"),
 
     # ---- Health & safety
     ("thaga", "ThagaShield", "safe",
@@ -70,6 +78,10 @@ APPS = [
      "What to eat and avoid, all in one list",
      "Select your health conditions and get one combined list of foods to eat and avoid — no conflicting advice, just where they overlap.",
      u("foodrx", "?v=2"), "diet nutrition food eat avoid health conditions"),
+    ("safebite", "SafeBite", "safe",
+     "Instant allergen check before you eat",
+     "Set your allergy profile once (it stays on your device), then check any food for allergens before you take a bite. Powered by Open Food Facts.",
+     u("safebite"), "allergy allergen food peanuts dairy gluten eggs soy shellfish barcode safe"),
 
     # ---- Learn
     ("bytebriefs", "ByteBriefs", "learn",
@@ -92,6 +104,10 @@ APPS = [
      "What the world is reading right now",
      "What is the world reading right now? Live top Wikipedia articles by country, plus a real-time stream of edits happening this second.",
      u("curiosity-pulse"), "wikipedia trending reading live edits countries"),
+    ("altsurf", "Alt-Surf", "learn",
+     "Real alternatives to any website",
+     "Type in the site you're stuck on and discover what else exists. No rankings, no sponsored results, just alternatives.",
+     u("alt-surf"), "alternatives websites similar sites discover netflix reddit notion spotify"),
 
     # ---- Through time
     ("retro", "Retroactive", "time",
@@ -162,6 +178,10 @@ APPS = [
      "Corporate nonsense, decoded",
      "Hit \"Synergize Paradigm\" for a fresh piece of corporate nonsense, then watch it get decoded into actual human language.",
      u("jargon-buster"), "corporate office buzzwords humour game decode"),
+    ("chuckle", "The Chuckle Hub", "games",
+     "One clean joke, whenever you need it",
+     "Tap once, get a light joke, heart the ones you love and come back for another. No doomscrolling, no feeds.",
+     u("chuckle-hub"), "jokes humour funny laugh smile daily fun"),
 ]
 
 # ---------------------------------------------------------------- glyphs
@@ -174,6 +194,9 @@ GLYPHS = {
     "train": f'<path d="M7 3h10a2 2 0 0 1 2 2v10a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V5a2 2 0 0 1 2-2Z"/><path d="M5 11h14"/><circle cx="9" cy="15" r="1" {DOT}/><circle cx="15" cy="15" r="1" {DOT}/><path d="m8.5 19-2 2.5M15.5 19l2 2.5"/>',
     "pin": '<path d="M12 21.5s7-6 7-11.5a7 7 0 1 0-14 0c0 5.5 7 11.5 7 11.5Z"/><circle cx="12" cy="10" r="2.6"/>',
     "sarkar": '<path d="M3 9.5 12 4l9 5.5H3Z"/><path d="M5.5 12.5v5M9.8 12.5v5M14.2 12.5v5M18.5 12.5v5"/><path d="M3.5 20.5h17"/>',
+    "reality": '<path d="M4 20V9l4-2.5V20"/><path d="M8 20V4.5l5 2V20"/><path d="M13 20v-7l4-1.5V20"/><path d="M3 20.5h18"/><path d="M10 8.5h1M10 11.5h1M10 14.5h1"/>',
+    "address": '<path d="M12 21.5s6.5-5.4 6.5-10.8a6.5 6.5 0 1 0-13 0c0 5.4 6.5 10.8 6.5 10.8Z"/><path d="M9.5 9.5h5M9.5 12h3"/>',
+    "safebite": '<path d="M12 3 4.5 6v5.5c0 4.4 3 7.8 7.5 9.5 4.5-1.7 7.5-5.1 7.5-9.5V6L12 3Z"/><path d="M9 15.5V9.2M7.4 9.2v2a1.6 1.6 0 0 0 3.2 0v-2M15.2 15.5V9c-1.3.7-1.9 1.9-1.9 3.5h1.9"/>',
     "thaga": '<path d="M12 3 4.5 6v5.5c0 4.4 3 7.8 7.5 9.5 4.5-1.7 7.5-5.1 7.5-9.5V6L12 3Z"/><path d="m9 12 2.2 2.2L15.5 10"/>',
     "side": '<path d="m10.5 20.5-7-7a4.95 4.95 0 0 1 7-7l7 7a4.95 4.95 0 0 1-7 7Z"/><path d="m8.5 8.5 7 7"/>',
     "foodrx": '<path d="M6.5 3v7.5M3.5 3v5a3 3 0 0 0 6 0V3"/><path d="M6.5 11v10"/><path d="M17.5 21V3c-2.4 1.4-3.5 4-3.5 7.5h3.5"/>',
@@ -181,6 +204,7 @@ GLYPHS = {
     "abstracted": '<path d="M14 3H7.5A2.5 2.5 0 0 0 5 5.5v13A2.5 2.5 0 0 0 7.5 21h9a2.5 2.5 0 0 0 2.5-2.5V8l-5-5Z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/>',
     "tharoor": '<path d="m5 20 7-16 7 16"/><path d="M7.8 14h8.4"/>',
     "synapse": '<circle cx="6" cy="7" r="2"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="12.5" r="2.4"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="17.5" r="2"/><path d="m7.6 8.3 2.6 2.7M16.6 7.6l-3 3.3M7.6 16.8l2.6-2.4M16.5 16.2l-2.4-2.2"/>',
+    "altsurf": '<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M16 8l3 4-3 4"/><path d="M8 16l-3-4 3-4"/>',
     "pulse": '<path d="M2.5 12H6l3-8 5 16 3-8h4.5"/>',
     "retro": '<path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1L3.5 8.5"/><path d="M3.5 3.5v5h5"/><path d="M12 7.5V12l3 2"/>',
     "gazette": '<path d="M5 21h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v14a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2"/><path d="M11 7.5h7v4h-7z"/><path d="M11 15h7M11 18h4.5"/>',
@@ -197,6 +221,7 @@ GLYPHS = {
     "chroma": '<circle cx="9" cy="9.5" r="5.2"/><circle cx="15" cy="9.5" r="5.2"/><circle cx="12" cy="15" r="5.2"/>',
     "gauntlet": '<path d="M14.5 17.5 3 6V3h3l11.5 11.5"/><path d="m13 19 6-6"/><path d="m16 16 4 4"/><path d="m19 21 2-2"/><path d="M14.5 6.5 18 3h3v3l-3.5 3.5"/><path d="m5 14 4 4"/><path d="m7 17-3 3"/><path d="m3 19 2 2"/>',
     "tatkal": '<path d="M3.5 8.5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2v2a2 2 0 0 0 0 3.8v2.2a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2v-2.2a2 2 0 0 0 0-3.8v-2Z"/><path d="M14.5 7v1.5M14.5 11.2v1.6M14.5 15.5V17"/>',
+    "chuckle": '<circle cx="12" cy="12" r="9"/><path d="M8 13.5a4.5 4.5 0 0 0 8 0Z"/><path d="M8.5 9.5h.01M15.5 9.5h.01"/>',
     "jargon": '<path d="M20.5 11.5a8 8 0 0 1-11.4 7.2L4 20l1.2-4.4A8 8 0 1 1 20.5 11.5Z"/><path d="M8.5 10.5h7M8.5 13.5h4"/>',
 }
 
