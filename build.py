@@ -24,7 +24,7 @@ CATEGORIES = [
 ]
 
 # Apps flagged here get a "New" badge. Remove ids once they stop being new.
-NEW = {"radio", "flightdle", "pulse", "reality", "altsurf", "address", "chuckle", "safebite"}
+NEW = {"radio", "flightdle", "pulse", "reality", "altsurf", "address", "chuckle", "safebite", "daru", "debunk", "ghost"}
 
 # id: (name, category, short tagline, long description, url, search keywords)
 def u(sub, q=""):
@@ -64,6 +64,10 @@ APPS = [
      "Clean, split Indian addresses to paste",
      "Turn any area, city or PIN code into properly split fields (house number, street, locality, city, state and PIN), ready to paste into checkout forms.",
      u("addresscraft"), "address format checkout form delivery pincode locality india split fields"),
+    ("daru", "Daru Desi", "around",
+     "Same bottle, different city, different price",
+     "Alcohol prices in India change at every state border. Browse what's available in each city, compare your home city with where you're headed, and spot the bottles that cost less when you travel.",
+     u("daru-desi"), "alcohol liquor whisky beer wine rum vodka prices compare state travel bottle duty"),
 
     # ---- Health & safety
     ("thaga", "ThagaShield", "safe",
@@ -82,6 +86,10 @@ APPS = [
      "Instant allergen check before you eat",
      "Set your allergy profile once (it stays on your device), then check any food for allergens before you take a bite. Powered by Open Food Facts.",
      u("safebite"), "allergy allergen food peanuts dairy gluten eggs soy shellfish barcode safe"),
+    ("debunk", "Debunk Daily", "safe",
+     "Today's fake news, fact-checked",
+     "The latest false stories as clean cards, newest first, each with the claim and the verdict on why it doesn't hold up. No endless threads, no noise.",
+     u("debunk-daily"), "fake news fact check misinformation hoax claims debunk verdict rumour whatsapp forward"),
 
     # ---- Learn
     ("bytebriefs", "ByteBriefs", "learn",
@@ -144,6 +152,10 @@ APPS = [
      "Local radio where the sun is setting now",
      "Finds the city where the sun is setting right now and plays a real local radio station. Drift west with the dusk line.",
      u("golden-hour"), "radio music stations sunset live listen"),
+    ("ghost", "Forgotten Coordinates", "world",
+     "Find any city's ghost twin",
+     "Type any city and meet its ghost twin: a place that once lived and was left behind, with the story history forgot. No tourist traps, just lost places.",
+     u("forgotten-coordinates"), "ghost town abandoned lost places ruins history city twin travel forgotten"),
     ("ekayana", "Ekayana", "world",
      "A quiet room for the Gita, Quran and Bible",
      "A quiet, distraction-free room to sit with the Gita, the Quran and the Bible, one verse at a time.",
@@ -197,6 +209,8 @@ GLYPHS = {
     "reality": '<path d="M4 20V9l4-2.5V20"/><path d="M8 20V4.5l5 2V20"/><path d="M13 20v-7l4-1.5V20"/><path d="M3 20.5h18"/><path d="M10 8.5h1M10 11.5h1M10 14.5h1"/>',
     "address": '<path d="M12 21.5s6.5-5.4 6.5-10.8a6.5 6.5 0 1 0-13 0c0 5.4 6.5 10.8 6.5 10.8Z"/><path d="M9.5 9.5h5M9.5 12h3"/>',
     "safebite": '<path d="M12 3 4.5 6v5.5c0 4.4 3 7.8 7.5 9.5 4.5-1.7 7.5-5.1 7.5-9.5V6L12 3Z"/><path d="M9 15.5V9.2M7.4 9.2v2a1.6 1.6 0 0 0 3.2 0v-2M15.2 15.5V9c-1.3.7-1.9 1.9-1.9 3.5h1.9"/>',
+    "daru": '<path d="M9.5 2.5h5M10 2.5v4.2c0 1.2-2 2.2-2 4.3v9a1.5 1.5 0 0 0 1.5 1.5h5a1.5 1.5 0 0 0 1.5-1.5v-9c0-2.1-2-3.1-2-4.3V2.5"/><path d="M8 13h8"/><path d="M11 16.5h2"/>',
+    "debunk": '<path d="M4 4.5h16v11H12l-4.5 4v-4H4v-11Z"/><path d="m9.5 8.5 5 4M14.5 8.5l-5 4"/>',
     "thaga": '<path d="M12 3 4.5 6v5.5c0 4.4 3 7.8 7.5 9.5 4.5-1.7 7.5-5.1 7.5-9.5V6L12 3Z"/><path d="m9 12 2.2 2.2L15.5 10"/>',
     "side": '<path d="m10.5 20.5-7-7a4.95 4.95 0 0 1 7-7l7 7a4.95 4.95 0 0 1-7 7Z"/><path d="m8.5 8.5 7 7"/>',
     "foodrx": '<path d="M6.5 3v7.5M3.5 3v5a3 3 0 0 0 6 0V3"/><path d="M6.5 11v10"/><path d="M17.5 21V3c-2.4 1.4-3.5 4-3.5 7.5h3.5"/>',
@@ -212,6 +226,7 @@ GLYPHS = {
     "artifact": '<path d="M9 3h6"/><path d="M10 3v3.2C10 8 7 8.6 7 13c0 3.5 2.2 6 3 8h4c.8-2 3-4.5 3-8 0-4.4-3-5-3-6.8V3"/><path d="M7.5 12c-2 0-3 1-3 2.5s1.2 2 2.8 2M16.5 12c2 0 3 1 3 2.5s-1.2 2-2.8 2"/>',
     "compass": '<circle cx="12" cy="12" r="9"/><path d="m15.8 8.2-2 5.6-5.6 2 2-5.6 5.6-2Z"/>',
     "culinary": '<path d="M3.5 11.5h17a8.5 8.5 0 0 1-17 0Z"/><path d="M8 20.5h8"/><path d="M8.5 3.5c-1 1.4 1 2.4 0 4M12 3.5c-1 1.4 1 2.4 0 4M15.5 3.5c-1 1.4 1 2.4 0 4"/>',
+    "ghost": f'<path d="M5.5 21V10a6.5 6.5 0 0 1 13 0v11l-2.2-2-2.1 2-2.2-2-2.2 2-2.1-2-2.2 2Z"/><circle cx="9.6" cy="10.5" r="1" {DOT}/><circle cx="14.4" cy="10.5" r="1" {DOT}/>',
     "wander": '<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c3 2.6 4.5 5.6 4.5 9S15 18.4 12 21c-3-2.6-4.5-5.6-4.5-9S9 5.6 12 3Z"/>',
     "radio": f'<path d="M4.9 19.1a10 10 0 0 1 0-14.2"/><path d="M8 16a5.6 5.6 0 0 1 0-8"/><circle cx="12" cy="12" r="1.7" {DOT}/><path d="M16 8a5.6 5.6 0 0 1 0 8"/><path d="M19.1 4.9a10 10 0 0 1 0 14.2"/>',
     "ekayana": '<path d="M2.5 5.2C5 3.8 8.8 4 12 6c3.2-2 7-2.2 9.5-.8V19c-2.5-1.4-6.3-1.2-9.5.8-3.2-2-7-2.2-9.5-.8V5.2Z"/><path d="M12 6v13.8"/>',
