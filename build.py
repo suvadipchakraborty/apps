@@ -24,7 +24,8 @@ CATEGORIES = [
 ]
 
 # Apps flagged here get a "New" badge. Remove ids once they stop being new.
-NEW = {"radio", "flightdle", "pulse", "reality", "altsurf", "address", "chuckle", "safebite", "daru", "debunk", "ghost"}
+NEW = {"radio", "flightdle", "pulse", "reality", "altsurf", "address", "chuckle", "safebite", "daru", "debunk", "ghost",
+       "sip", "pantry", "stargazer", "faceoff", "moodpoem", "dossier", "auratunes", "roast"}
 
 # id: (name, category, short tagline, long description, url, search keywords)
 def u(sub, q=""):
@@ -68,6 +69,14 @@ APPS = [
      "Same bottle, different city, different price",
      "Alcohol prices in India change at every state border. Browse what's available in each city, compare your home city with where you're headed, and spot the bottles that cost less when you travel.",
      u("daru-desi"), "alcohol liquor whisky beer wine rum vodka prices compare state travel bottle duty"),
+    ("sip", "SIP Time Machine", "around",
+     "What your monthly SIP would be worth today",
+     "Pick any mutual fund, set your monthly amount and dial the years. See exactly what that disciplined SIP would be worth today, with no complicated charts.",
+     u("sip-time-machine"), "sip mutual fund investment returns calculator money savings what if invest monthly nav"),
+    ("pantry", "Pantry Rescue", "around",
+     "Turn what's in your fridge into dinner",
+     "Add the ingredients you already have and find recipes that need the fewest extras. No more staring into the fridge or ordering out.",
+     u("pantry-rescue"), "recipes cooking ingredients fridge leftovers dinner meals kitchen food pantry"),
 
     # ---- Health & safety
     ("thaga", "ThagaShield", "safe",
@@ -116,6 +125,14 @@ APPS = [
      "Real alternatives to any website",
      "Type in the site you're stuck on and discover what else exists. No rankings, no sponsored results, just alternatives.",
      u("alt-surf"), "alternatives websites similar sites discover netflix reddit notion spotify"),
+    ("stargazer", "Stargazer", "learn",
+     "ISS, sky cover, moon and NASA's picture",
+     "A pocket dashboard for the cosmos: live ISS position, local cloud cover and visibility, the moon phase and NASA's Astronomy Picture of the Day.",
+     u("stargazer"), "stars night sky iss space station moon phase nasa apod astronomy clouds visibility telescope"),
+    ("faceoff", "Country Face-Off", "learn",
+     "Two countries, thirty years of data",
+     "Put any two nations head to head on GDP per capita, life expectancy, internet usage and more. Watch the lines race across three decades and get the verdict. Powered by World Bank data.",
+     u("country-face-off"), "countries compare gdp life expectancy internet world bank data india usa china germany versus"),
 
     # ---- Through time
     ("retro", "Retroactive", "time",
@@ -134,6 +151,10 @@ APPS = [
      "One museum object, every day",
      "One object from the world's museums, every day. Switch between Global and India Only, then tap Discover Next for another.",
      u("museum"), "museum objects art history india collection"),
+    ("dossier", "Court Dossier", "time",
+     "History's notable crimes, as clean case files",
+     "Browse real cases across decades and countries and read a clean narrative of the investigation and trial, without the dense legalese or wiki-bloat.",
+     u("court-dossier"), "crime court cases trials investigation true crime history law dossier detective"),
 
     # ---- World & culture
     ("compass", "Cultural Compass", "world",
@@ -168,6 +189,14 @@ APPS = [
      "A brutal second opinion on any movie",
      "The anti-watchlist. Type a movie, get a brutal second opinion on why to skip it, plus what else you could do with those two hours.",
      u("reverse-spoiler"), "movies film cinema skip watchlist review"),
+    ("moodpoem", "Mood Poem", "world",
+     "One classic poem for how you feel right now",
+     "Tell it how you feel, or how the weather feels, and get one timeless classic poem to match. No scrolling, no modern noise.",
+     u("mood-poem"), "poem poetry verse classic mood feeling romantic melancholy hopeful rain literature"),
+    ("auratunes", "AuraTunes", "world",
+     "Pick a mood, get five tracks",
+     "Choose a mood, add a genre and an era, and get a short curated playlist of five tracks instantly. No endless scrolling, no algorithm rabbit holes.",
+     u("mood-music"), "music songs playlist mood chill energetic focus romantic genre era tracks discover"),
 
     # ---- Games
     ("flightdle", "Flightdle", "games",
@@ -194,6 +223,10 @@ APPS = [
      "One clean joke, whenever you need it",
      "Tap once, get a light joke, heart the ones you love and come back for another. No doomscrolling, no feeds.",
      u("chuckle-hub"), "jokes humour funny laugh smile daily fun"),
+    ("roast", "Roast & Toast", "games",
+     "One tap for a roast, one for a compliment",
+     "Need the perfect compliment for a friend or the ultimate comeback for a troll? One tap for a savage roast, one for a pure compliment, with one-click copy.",
+     u("roast-toast"), "roast compliment insult comeback toast friend funny copy banter humour troll"),
 ]
 
 # ---------------------------------------------------------------- glyphs
@@ -238,6 +271,14 @@ GLYPHS = {
     "tatkal": '<path d="M3.5 8.5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2v2a2 2 0 0 0 0 3.8v2.2a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2v-2.2a2 2 0 0 0 0-3.8v-2Z"/><path d="M14.5 7v1.5M14.5 11.2v1.6M14.5 15.5V17"/>',
     "chuckle": '<circle cx="12" cy="12" r="9"/><path d="M8 13.5a4.5 4.5 0 0 0 8 0Z"/><path d="M8.5 9.5h.01M15.5 9.5h.01"/>',
     "jargon": '<path d="M20.5 11.5a8 8 0 0 1-11.4 7.2L4 20l1.2-4.4A8 8 0 1 1 20.5 11.5Z"/><path d="M8.5 10.5h7M8.5 13.5h4"/>',
+    "sip": '<path d="M3.5 20.5h17"/><path d="M5.5 17v-3.5M10 17V10.5M14.5 17v-5M19 17V6.5"/><path d="m5 8.5 4.5-3 4 2.5 5-4"/>',
+    "pantry": '<path d="M5 9h14l-1.2 10.2a1.5 1.5 0 0 1-1.5 1.3H7.7a1.5 1.5 0 0 1-1.5-1.3L5 9Z"/><path d="M3.5 9h17"/><path d="M9 9c0-2.5 1.3-4.5 3-4.5S15 6.5 15 9"/>',
+    "stargazer": '<path d="M12 3.5 14 9l5.5.5-4.2 3.6 1.3 5.4L12 15.6 7.4 18.5l1.3-5.4L4.5 9.5 10 9l2-5.5Z"/><path d="M19.5 3.5v3M18 5h3"/>',
+    "faceoff": '<path d="M4 20V10M10 20V4M14 20V8M20 20V13"/><path d="M2.5 20.5h19"/>',
+    "dossier": '<path d="M3.5 7.5a1.5 1.5 0 0 1 1.5-1.5h4l2 2h8a1.5 1.5 0 0 1 1.5 1.5v8.5a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 18V7.5Z"/><path d="M8 13h8M8 16h5"/>',
+    "moodpoem": '<path d="M19.5 4.5c-7 0-12 4-12 10v3"/><path d="M19.5 4.5c0 6-4 10-10 10"/><path d="M7.5 17.5 5 21"/><path d="M11 10.5h4"/>',
+    "auratunes": '<path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/>',
+    "roast": '<path d="M12 21c-3.9 0-7-2.9-7-6.6 0-2.7 1.6-4.4 3-6 .9-1 1.4-2.2 1.4-3.9 2.5 1.2 4 3 4.3 5.2.7-.7 1.1-1.6 1.2-2.7 2.1 1.8 3.1 4.2 3.1 6.9 0 3.7-2.1 7.1-6 7.1Z"/><path d="M9.5 15.5a2.5 2.5 0 0 0 5 0"/>',
 }
 
 UI_ICONS = {
