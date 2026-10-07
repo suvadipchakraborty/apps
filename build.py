@@ -25,7 +25,8 @@ CATEGORIES = [
 
 # Apps flagged here get a "New" badge. Remove ids once they stop being new.
 NEW = {"radio", "flightdle", "pulse", "reality", "altsurf", "address", "chuckle", "safebite", "daru", "debunk", "ghost",
-       "sip", "pantry", "stargazer", "faceoff", "moodpoem", "dossier", "auratunes", "roast"}
+       "sip", "pantry", "stargazer", "faceoff", "moodpoem", "dossier", "auratunes", "roast",
+       "omnisport", "figures", "spechunter", "skillforge", "haunted"}
 
 # id: (name, category, short tagline, long description, url, search keywords)
 def u(sub, q=""):
@@ -77,6 +78,10 @@ APPS = [
      "Turn what's in your fridge into dinner",
      "Add the ingredients you already have and find recipes that need the fewest extras. No more staring into the fridge or ordering out.",
      u("pantry-rescue"), "recipes cooking ingredients fridge leftovers dinner meals kitchen food pantry"),
+    ("spechunter", "SpecHunter", "around",
+     "Find cars by specs, not badges",
+     "Set the power, weight, drive type and cylinders you want and see the exact trims that match. Uncover the hidden gems the badge hunters miss.",
+     u("spec-hunter"), "cars specs horsepower weight drive type cylinders trims engine search vehicle buy"),
 
     # ---- Health & safety
     ("thaga", "ThagaShield", "safe",
@@ -133,6 +138,10 @@ APPS = [
      "Two countries, thirty years of data",
      "Put any two nations head to head on GDP per capita, life expectancy, internet usage and more. Watch the lines race across three decades and get the verdict. Powered by World Bank data.",
      u("country-face-off"), "countries compare gdp life expectancy internet world bank data india usa china germany versus"),
+    ("skillforge", "SkillForge", "learn",
+     "Tap what you know, see what to learn next",
+     "Tap everything you already know, with no typing or long forms, and let AI map your trajectory: the next technical and soft skills that actually move the needle.",
+     u("skill-forge"), "career skills roadmap learn jobs growth upskilling ai trajectory soft technical"),
 
     # ---- Through time
     ("retro", "Retroactive", "time",
@@ -155,6 +164,10 @@ APPS = [
      "History's notable crimes, as clean case files",
      "Browse real cases across decades and countries and read a clean narrative of the investigation and trial, without the dense legalese or wiki-bloat.",
      u("court-dossier"), "crime court cases trials investigation true crime history law dossier detective"),
+    ("figures", "Timeless Figures", "time",
+     "History's most notable names, ranked",
+     "Choose a calling and meet the kings, queens, scientists, philosophers and mathematicians history remembers most, ranked by how widely the world still writes about them.",
+     u("timeless-figures"), "history famous people kings queens emperors scientists philosophers mathematicians physicists astronomers biography"),
 
     # ---- World & culture
     ("compass", "Cultural Compass", "world",
@@ -197,6 +210,14 @@ APPS = [
      "Pick a mood, get five tracks",
      "Choose a mood, add a genre and an era, and get a short curated playlist of five tracks instantly. No endless scrolling, no algorithm rabbit holes.",
      u("mood-music"), "music songs playlist mood chill energetic focus romantic genre era tracks discover"),
+    ("omnisport", "OmniSport Arena", "world",
+     "Live scores for every major sport",
+     "One live dashboard for football, NBA, NFL, F1, MMA, hockey, rugby, baseball and more. Scores, match status and schedules adjusted to your timezone.",
+     u("omnisport-arena"), "sports live scores football soccer nba nfl f1 mma hockey rugby baseball cricket fixtures schedule"),
+    ("haunted", "Haunted Atlas", "world",
+     "A classified map of the paranormal",
+     "A map of haunted sites, unexplained locations and local legends pulled from archives across the globe. Switch between US Archives and Global.",
+     u("haunted-atlas"), "haunted ghosts paranormal map locations legends unexplained spooky creepy places"),
 
     # ---- Games
     ("flightdle", "Flightdle", "games",
@@ -279,6 +300,11 @@ GLYPHS = {
     "moodpoem": '<path d="M19.5 4.5c-7 0-12 4-12 10v3"/><path d="M19.5 4.5c0 6-4 10-10 10"/><path d="M7.5 17.5 5 21"/><path d="M11 10.5h4"/>',
     "auratunes": '<path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/>',
     "roast": '<path d="M12 21c-3.9 0-7-2.9-7-6.6 0-2.7 1.6-4.4 3-6 .9-1 1.4-2.2 1.4-3.9 2.5 1.2 4 3 4.3 5.2.7-.7 1.1-1.6 1.2-2.7 2.1 1.8 3.1 4.2 3.1 6.9 0 3.7-2.1 7.1-6 7.1Z"/><path d="M9.5 15.5a2.5 2.5 0 0 0 5 0"/>',
+    "spechunter": '<circle cx="12" cy="12" r="9"/><path d="m12 12 4.5-3.5"/><path d="M6 15.5h.01M8 9.5h.01M12 7h.01M17 12h.01"/>',
+    "skillforge": '<path d="M3.5 20.5h17"/><path d="M6 17.5h12l-1.2-3H7.2L6 17.5Z"/><path d="M8 14.5V12h8v2.5"/><path d="M9 12c0-3 1.5-5 3-7 1.5 2 3 4 3 7"/>',
+    "figures": '<circle cx="12" cy="8" r="3.5"/><path d="M5 20.5c0-3.9 3.1-6.5 7-6.5s7 2.6 7 6.5"/>',
+    "omnisport": '<circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/><path d="M5.5 5.8c3 2 3 10.4 0 12.4M18.5 5.8c-3 2-3 10.4 0 12.4"/>',
+    "haunted": '<circle cx="12" cy="12" r="9"/><path d="M12 3v4M12 17v4M3 12h4M17 12h4"/><circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/>',
 }
 
 UI_ICONS = {
